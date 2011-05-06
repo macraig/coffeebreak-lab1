@@ -1,17 +1,18 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
+@Table(name="LOCATION")
 @Embeddable
 public class Location {
 	@Column(name="LONGITUD") 
 	private long longitud;
 	@Column(name="LATITUDE")
 	private long latitude;
+    @Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
 	
 	public Location (long longi, long lati){
 		this.longitud=longi;

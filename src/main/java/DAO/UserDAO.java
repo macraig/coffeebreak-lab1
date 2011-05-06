@@ -60,11 +60,7 @@ public class UserDAO extends BaseDAO {
 		persist(user);
 	}
 	
-	//public void deleteUser(Long userId){
-		//User user=(User) session.get(User.class,userId);
-		//delete(user);
-		//retrieveObject?
-	//}
+
 	
 
 	
