@@ -19,7 +19,7 @@ public class Place {
 	private String name;
 	@Embedded @OneToOne(targetEntity = model.Location.class)
 	private Location location;
-	@Column(name="ADDRESS")
+	@Column(name="ADDRESS", nullable = false)
 	private String address;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

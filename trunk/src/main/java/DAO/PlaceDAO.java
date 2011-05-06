@@ -60,10 +60,6 @@ public class PlaceDAO extends BaseDAO {
 		persist(p);
 	}
 	
-	public void deletePlace(Long placeId){
-		//hacer
 
-	}
-	
 
 }

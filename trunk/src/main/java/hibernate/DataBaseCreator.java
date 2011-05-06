@@ -3,12 +3,15 @@ package hibernate;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import model.Location;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import model.User;
+import model.Place;
 
 public class DataBaseCreator {
 
@@ -31,6 +34,7 @@ public class DataBaseCreator {
 
 	public static void main(String[] args) {
 		createDatabase();
+
 	}
 
 }
