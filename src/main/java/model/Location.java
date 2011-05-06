@@ -18,8 +18,11 @@ public class Location {
 		this.longitud=longi;
 		this.latitude=lati;
 	}
-	
-	public long getLongitud() {
+
+    public Location() {
+    }
+
+    public long getLongitud() {
 		return longitud;
 	}
 
