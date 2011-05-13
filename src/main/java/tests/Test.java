@@ -18,26 +18,33 @@ import model.User;
 public class Test {
 
     public static void main(String[] args) {
-       // User user = new User("Chelen","pololo");
-       // Place p = new Place("The Coffee Store","Paseo Colon 123");
-        Location loc = new Location(951,684);
+
+        Place p = new Place("The Coffee Store","Paseo Colon 123");
+       // Location loc = new Location(951,684);
 
 
-        LocationDAO ldao = new LocationDAO();
-        ldao.persist(loc);
+       // LocationDAO ldao = new LocationDAO();
+       // ldao.persist(loc);
         // p.setLocation(loc);
        // dao.persist(user);
        // pdao.persist(p);
 
-         UserDAO dao = new UserDAO();
-        dao.updatePassword("Chelen","catcopy");
-        dao.updateLocation("Chelen",loc);
-//        dao.createUser("Mary","wololo");
+        User a = new User("Mary", "mardybum");
+        User b = new User("Chelen", "catcopy");
+         a.getFriends().add(b);
+        a.getFavouritePlaces().add(p);
 
-        //PlaceDAO pdao = new PlaceDAO();
-       // pdao.createPlace("McDonald's","Pipidi Papa 456");
-        //pdao.updateLocation("The Coffee Store",loc);
-       // pdao.updateAddress("The Coffee Store","Pipidi Papa 987");
+        UserDAO dao = new UserDAO();
+
+        dao.persist(a);
+
+        dao.persist(b);
+
+
+
+
+
+
 
 
 	}

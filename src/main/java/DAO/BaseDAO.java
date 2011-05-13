@@ -12,7 +12,7 @@ import org.hibernate.classic.Session;
 
 public class BaseDAO {
 	
-    public static void persist(Object pojo) {
+    public void persist(Object pojo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.saveOrUpdate(pojo);

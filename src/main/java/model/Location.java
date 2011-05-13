@@ -12,7 +12,7 @@ public class Location {
 	private long latitude;
     @Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private long locationId;
 	
 	public Location (long lati, long longi){
 		this.longitude=longi;
@@ -37,5 +37,14 @@ public class Location {
 	public void setLatitude(long latitude) {
 		this.latitude = latitude;
 	}
-	
+
+     public long getLocationId() {
+        return locationId;
+    }
+
+
+    public void setLocationId(long locationId) {
+        this.locationId = locationId;
+    }
+
 }

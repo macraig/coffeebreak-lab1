@@ -1,5 +1,8 @@
 package model;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -15,13 +18,19 @@ public class User {
 	@Embedded @OneToOne
 	private Location lastLocation;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
-	//@ManyToMany(targetEntity=model.User.class, fetch = FetchType.EAGER)
-	//private List<User> friends;
-	
+	private long userId;
+    @ManyToMany(cascade = CascadeType.ALL)
+	private Set<User> friends;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Place> favouritePlaces;
+
 	public User(String name, String pass){
 		this.nickName=name;
 		this.password=pass;
+        friends = new HashSet<User>();
+        favouritePlaces = new HashSet<Place>();
+
+
 	}
 
      public User() {
@@ -46,11 +55,11 @@ public class User {
 	}
 	
 	public long getId(){
-		return id;
+		return userId;
 	}
 	
 	public void setId(long id){
-		this.id=id;
+		this.userId=id;
 	}
 	
 	
@@ -61,10 +70,22 @@ public class User {
 	public void setLastLocation(Location lastLocation) {
 		this.lastLocation = lastLocation;
 	}
-	
 
-	
+    public Set<User> getFriends() {
+        return friends;
+    }
 
-	
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
+    }
+
+    public void setFavouritePlaces(Set<Place> favouritePlaces) {
+        this.favouritePlaces = favouritePlaces;
+    }
+
+    public Set<Place> getFavouritePlaces() {
+
+        return favouritePlaces;
+    }
 }
 

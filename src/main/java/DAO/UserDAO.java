@@ -26,42 +26,4 @@ public class UserDAO extends BaseDAO {
 		return userList;
 	}
 
-	public static void updatePassword(String nickName, String password) {
-		List<User> userList = new ArrayList<User>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			String query = "from User where nickName ='" + nickName + "' ";
-			userList = session.createQuery(query).list();
-		} finally {
-			session.close();
-		}
-		User user = userList.get(0);
-		user.setPassword(password);
-		persist(user);
-	}
-	
-	public static void updateLocation(String nickName, Location location) {
-		List<User> userList = new ArrayList<User>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			String query = "from User where nickName ='" + nickName + "' ";
-			userList = session.createQuery(query).list();
-		} finally {
-			session.close();
-		}
-		User user = userList.get(0);
-		user.setLastLocation(location);
-		persist(user);
-	}
-	
-
-	public static void createUser(String name, String password){
-		User user = new User (name,password);
-		persist(user);
-	}
-	
-
-	
-
-	
 }
