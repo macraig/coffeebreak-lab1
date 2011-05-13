@@ -23,7 +23,7 @@ public class Place {
 	private String address;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private long placeId;
 
     public Place() {
     }
@@ -57,11 +57,11 @@ public class Place {
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.placeId = id;
 	}
 
 	public long getId() {
-		return id;
+		return placeId;
 	}
 	
 	
