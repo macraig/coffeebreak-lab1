@@ -23,7 +23,10 @@ public class User {
 		this.nickName=name;
 		this.password=pass;
 	}
-	
+
+     public User() {
+    }
+
 	public String getNickName(){
 		return nickName;
 	}

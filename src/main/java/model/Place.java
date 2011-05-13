@@ -24,8 +24,11 @@ public class Place {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	
-	public Place(String name, String address){
+
+    public Place() {
+    }
+
+    public Place(String name, String address){
 		this.name=name;
 		this.address=address;
 	}

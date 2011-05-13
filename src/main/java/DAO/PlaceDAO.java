@@ -25,11 +25,11 @@ public class PlaceDAO extends BaseDAO {
 	}
 	
 	
-	public static void updateAddress(String nickName, String address) {
+	public static void updateAddress(String name,String address) {
 		List<Place> placeList = new ArrayList<Place>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		try {
-			String query = "from Place where address ='" + address + "' ";
+			String query = "from Place where name ='" + name + "' ";
 			placeList = session.createQuery(query).list();
 		} finally {
 			session.close();
