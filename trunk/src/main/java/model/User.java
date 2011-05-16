@@ -15,6 +15,8 @@ public class User {
 	private String nickName;
 	@Column(name= "USER_PASS", nullable = false)
 	private String password;
+    @Column(nullable = false,unique=true)
+    private String email;
 	@Embedded @OneToOne
 	private Location lastLocation;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -86,6 +88,14 @@ public class User {
     public Set<Place> getFavouritePlaces() {
 
         return favouritePlaces;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 
