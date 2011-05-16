@@ -29,6 +29,7 @@ public class User {
 	public User(String name, String pass, String mail){
 		this.nickName=name;
 		this.password=pass;
+        this.email=mail;
         friends = new HashSet<User>();
         favouritePlaces = new HashSet<Place>();
 
