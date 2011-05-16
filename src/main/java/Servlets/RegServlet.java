@@ -8,17 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DAO.UserDAO;
+import model.User;
 
 /**
 * Servlet implementation class MyServlet
 */
 @WebServlet("/MyServlet")
 public class RegServlet extends HttpServlet {
+    UserDAO dao;
        private static final long serialVersionUID = 1L;
        
        public RegServlet() {
        super();
-       new UserDAO();
+        dao = new UserDAO();
    }
 
 
@@ -30,6 +32,11 @@ public class RegServlet extends HttpServlet {
 
 
        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+           User user = new User(request.getParameter("name"), request.getParameter("pass"), request.getParameter("mail"));
+           dao.persist(user);
+
+
 
                response.setContentType("text/html");
                PrintWriter write = response.getWriter();

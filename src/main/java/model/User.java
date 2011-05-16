@@ -26,7 +26,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Place> favouritePlaces;
 
-	public User(String name, String pass){
+	public User(String name, String pass, String mail){
 		this.nickName=name;
 		this.password=pass;
         friends = new HashSet<User>();
