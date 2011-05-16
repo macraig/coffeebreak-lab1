@@ -30,7 +30,7 @@ public class RegServlet extends HttpServlet {
 
 
        protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-              // UserDAO.createUser(request.getParameter("name"), request.getParameter("pass"));
+
                response.setContentType("text/html");
                PrintWriter write = response.getWriter();
                write.println("<html> <body> <h1> User creado con exito </h1> </body> </html>");
