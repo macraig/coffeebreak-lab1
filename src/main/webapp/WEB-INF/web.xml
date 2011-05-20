@@ -1,19 +1,42 @@
 <!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
+
+    <display-name>Archetype Created Web Application</display-name>
+
+    <filter>
+        <filter-name>Security Filter</filter-name>
+        <filter-class>org.securityfilter.filter.SecurityFilter</filter-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/securityfilter-config.xml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>validate</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
 
 
-<servlet>
-  <servlet-name>Register</servlet-name>
-  <servlet-class>Servlets.RegServlet</servlet-class>
- </servlet>
+    <filter-mapping>
+        <filter-name>Security Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
-<servlet-mapping>
-  <servlet-name>Register</servlet-name>
-  <url-pattern>/register.do</url-pattern>
-</servlet-mapping>
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>servlets.RegServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/register.do</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
 </web-app>

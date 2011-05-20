@@ -1,13 +1,12 @@
 package DAO;
 
 import hibernate.HibernateUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.classic.Session;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class BaseDAO {
