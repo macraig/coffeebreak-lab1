@@ -1,13 +1,5 @@
 package DAO;
 
-import hibernate.HibernateUtil;
-import model.Location;
-import model.Place;
-import org.hibernate.Session;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by IntelliJ IDEA.
  * User: Mary Anne

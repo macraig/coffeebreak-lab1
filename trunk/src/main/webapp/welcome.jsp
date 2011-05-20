@@ -41,21 +41,13 @@
 <body onload="loadMap()">
 <header>
     <div id="user-bar">
-        <form id="loginForm" action="j_security_check" method="post">
-            <table width="100%" border="0">
 
+        <table width="100%" border="0">
 
+            Welcome <%=request.getRemoteUser()%> to Cofee Break
+            <a href="logout.jsp"> <font color="#FFFFCC"> Logout</font> </a>
 
-                <tr>
-                    <td colspan="2" rowspan="2"><span class="titulo">Coffee Break</span></td>
-                    <td width="24%"><input id="j_username" name="j_username" type="text" placeholder="name@mail.com" /></td>
-                    <td width="12%"><input type="submit" class="boton" value="SIGN IN" /></td>
-                </tr>
-                <tr>
-                    <td><input id="j_password" name="j_password" type="password" placeholder="*****"/></td>
-                    <td> <a href="register.html" class=""><span class="boton">SIGN UP</span></a></td>
-                </tr>
-            </table>
+        </table>
 
 
 
@@ -63,10 +55,12 @@
 
 
 
-        </form>
 
 
     </div>
+
+
+
 
 
 </header>
