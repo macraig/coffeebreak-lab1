@@ -47,13 +47,14 @@
 
 
                 <tr>
-                    <td colspan="2" rowspan="2"><span class="titulo">Coffee Break</span></td>
+                    <td colspan="2" rowspan="2"><span class="titulo">SANGRE</span></td>
                     <td width="24%"><input id="j_username" name="j_username" type="text" placeholder="name@mail.com" /></td>
                     <td width="12%"><input type="submit" class="boton" value="SIGN IN" /></td>
                 </tr>
                 <tr>
                     <td><input id="j_password" name="j_password" type="password" placeholder="*****"/></td>
                     <td> <a href="register.html" class=""><span class="boton">SIGN UP</span></a></td>
+                    <td> <a href="mod.jsp" class=""><span class="boton"> MODIFICAR </span></a></td>
                 </tr>
             </table>
 
