@@ -1,0 +1,272 @@
+@font-face {
+	font-family: cafe;
+	src: url('etc/font.ttf');
+}
+
+*{
+	/* Universal reset: */
+	margin:0;
+	padding:0;
+}
+
+body{
+	/* Setting the default text color, size, page background and a font stack: */
+	font-size:0.825em;
+	color:#fcfcfc;
+	background-color:#355664;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+/* Hyperlink Styles: */
+
+a, a:visited {
+	color:#0196e3;
+	text-decoration:none;
+	outline:none;
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+a img{
+	border:none;
+}
+
+/* Headings: */
+
+h1,h2,h3{
+	font-family:"Myriad Pro","Helvetica Neue",Helvetica,Arial,Sans-Serif;
+	text-shadow:0 1px 1px black;
+}
+
+h1{
+	/* The logo text */
+	font-size:3.5em;
+	padding:0.5em 0 0;
+	text-transform:uppercase;
+}
+
+h3{
+	/* The slogan text */
+	font-family:forte,"Myriad Pro","Helvetica Neue",Helvetica,Arial,Sans-Serif;
+	font-size:2em;
+	font-weight:normal;
+	margin:0 0 1em;
+}
+
+
+h2{
+	font-size:2.2em;
+	font-weight:normal;
+	letter-spacing:0.01em;
+	text-transform:uppercase;
+}
+
+p{
+	line-height:1.5em;
+	padding-bottom:1em;
+}
+
+.line{
+	/* The dividing line: */
+	height:1px;
+	background-color:#24404c;
+	border-bottom:1px solid #416371;
+	margin:1em 0;
+	overflow:hidden;
+}
+
+div.article .line{
+	/* The dividing line inside of the article is darker: */
+	background-color:#15242a;
+	border-bottom-color:#204656;
+	margin:1.3em 0;
+}
+
+div.footer .line{
+	margin:2em 0;
+}
+
+div.nav{
+	background:url(img/gradient_light.jpg) repeat-x 50% 50% #f8f8f8;
+	padding:0 5px;
+	position:absolute;
+	right:0;
+	top:4em;
+	
+	border:1px solid #FCFCFC;
+
+	-moz-box-shadow:0 1px 1px #333333;
+	-webkit-box-shadow:0 1px 1px #333333;
+	box-shadow:0 1px 1px #333333;
+}
+
+/* The clearfix hack to clear the floats: */
+
+.clear:after{
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+/* The navigation styling: */
+
+div.nav ul li{
+	display:inline;
+}
+
+div.nav ul li a,
+div.nav ul li a:visited{
+	color:#565656;
+	display:block;
+	float:left;
+	font-size:1.25em;
+	font-weight:bold;
+	margin:5px 2px;
+	padding:7px 10px 4px;
+	text-shadow:0 1px 1px white;
+	text-transform:uppercase;
+}
+
+div.nav ul li a:hover{
+	text-decoration:none;
+	background-color:#f0f0f0;
+}
+
+div.nav, div.article, div.nav ul li a,div.figure{
+	/* Applying CSS3 rounded corners: */
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+}
+
+/* Article styles: */
+
+#page{
+	width:960px;
+	margin:0 auto;
+	position:relative;
+}
+
+div.article{
+	background-color:#213E4A;
+	margin:3em 0;
+	padding:20px;
+	
+	text-shadow:0 2px 0 black;
+}
+
+div.figure{
+	border:3px solid #142830;
+	float:right;
+	height:300px;
+	margin-left:15px;
+	overflow:hidden;
+	width:500px;
+}
+
+div.figure:hover{
+	-moz-box-shadow:0 0 2px #4D7788;
+	-webkit-box-shadow:0 0 2px #4D7788;
+	box-shadow:0 0 2px #4D7788;
+}
+
+div.figure img{
+	margin-left:-60px;
+}
+
+/* Footer styling: */
+
+div.footer{
+	margin-bottom:30px;
+	text-align:center;
+	font-size:0.825em;
+}
+
+
+div.footer p{
+	margin-bottom:-2.5em;
+	position:relative;
+}
+
+div.footer a,div.footer a:visited{
+	color:#cccccc;
+	background-color:#213e4a;
+	display:block;
+	padding:2px 4px;
+	z-index:100;
+	position:relative;
+}
+
+div.footer a:hover{
+	text-decoration:none;
+	background-color:#142830;
+}
+
+div.footer a.by{
+	float:left;
+
+}
+
+div.footer a.up{
+	float:right;
+}
+
+input{
+	width: 260px; height: 35px; padding: 5px 20px 0px 20px; margin-left:10px;
+	background: #339;
+	background: -moz-linear-gradient(top, #546A7F 0%, #355664 20%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#546A7F), color-stop(20%,#355664)); /* webkit */
+	border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;
+	-moz-box-shadow: 0px 1px 0px #0D3E59;-webkit-box-shadow: 0px 1px 0px #0D3E59;
+	color: #999;
+	border-color: #142830;
+}
+
+input[type=checkbox]{
+	width:auto;
+	margin-left:100px;
+	height:auto;
+	
+}
+
+
+
+
+input[type=submit] {
+	float: right;
+	background:url(img/gradient_light.jpg) repeat-x 50% 50%;
+	padding:0 5px;
+	right:0;
+	top:4em;
+	width:160px;
+	border:1px solid #FCFCFC;
+	
+
+	-moz-box-shadow:0 1px 1px #333333;
+	-webkit-box-shadow:0 1px 1px #333333;
+	box-shadow:0 1px 1px #333333;
+
+	-moz-box-shadow:0 1px 1px #333333;
+	-webkit-box-shadow:0 1px 1px #333333;
+	box-shadow:0 1px 1px #333333;
+	color:#565656;
+	display:block;
+	font-size:1.25em;
+	font-weight:bold;
+	text-shadow: none;
+}
+	/*width: 185px; height: 52px; padding: 10px 15px; margin: 0px 11px 0px 200px;
+	/*-moz-box-shadow: 0px 0px 5px #999;-webkit-box-shadow: 0px 0px 5px #999;
+	border: 1px solid #556f8c;
+	background: -moz-linear-gradient(top, #718DA9 0%, #415D79 100%); /* firefox */
+	/*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#718DA9), color-stop(100%,#415D79)); /* webkit */
+	cursor: pointer;
+}
+
+#separator{
+	margin-bottom:100px;
+}

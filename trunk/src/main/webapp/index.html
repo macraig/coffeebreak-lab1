@@ -1,79 +1,129 @@
 <!DOCTYPE html>
+
 <html>
-<head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <link rel="stylesheet" type="text/css" href="style3.css">
-
-    <script type="text/javascript"
-            src="http://maps.google.com/maps/api/js?sensor=false">
-    </script>
-    <script type="text/javascript">
-        var map = null;
-
-        function loadMap(){
-
-            var mapLayout = document.getElementById("map_canvas");
-
-            var myOptions = {
-                zoom: 17,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-
-            map = new google.maps.Map (mapLayout, myOptions)
-
-            navigator.geolocation.getCurrentPosition(function(position){
-
-                if (position.coords.latitude){
-
-                    map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                } else {
-                    map.setCenter(-34,-30);
-
-                }
-
-            });
-
+    <head>
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>Coffee Break</title>
+        
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+               
+        <!--[if IE]>
+        
+        <style type="text/css">
+        .clear {
+          zoom: 1;
+          display: block;
         }
+        </style>
 
-    </script>
+        
+        <![endif]-->
+        
+    <style type="text/css">
+    #page #articles #article1 .articleBody.clear {
+	text-align: center;
+}
+    #page #articles #article1 .articleBody.clear span {
+	font-style: italic;
+}
+    #page #articles #article1 .articleBody.clear form p {
+	text-align: left;
+}
+    #page #articles #article1 .articleBody.clear form p {
+	text-align: left;
+}
+    </style>
+    </head>
+    
+<body>
 
-</head>
-<body onload="loadMap()">
-<header>
-    <div id="user-bar">
-        <form id="loginForm" action="j_security_check" method="post">
-            <table width="100%" border="0">
+    	<div class="section" id="page"> <!-- Defining the #page section with the section tag -->
+    
+            <div class="header"> <!-- Defining the header section of the page with the appropriate tag -->
+
+                <h1>Coffee Break</h1>
+                <h3>Social Gatherings Made Easy</h3>
+                
+                <div class="nav clear"> <!-- The nav link semantically marks your main site navigation -->
+                    <ul>
+                        <li><a href="#article1">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="register.html">Sign Up</a></li>
+                    </ul>
+                </div>
+            
+            </div>
+            
+            <div class="section" id="articles"> <!-- A new section with the articles -->
+
+				<!-- Article 1 start -->
+
+                <div class="line"></div>  <!-- Dividing line -->
+                
+                <div class="article" id="article1"> <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
+                    <h2>Log In</h2>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="articleBody clear">
+                    
+                    	<div class="figure"> <!-- Aca va a ir un mapa en vez -->
+	                    	<!--<img src="http://tutorialzine.com/img/featured/641.jpg" width="620" height="340" alt="Image one" />	-->		
+                            
+                            <div id="map_canvas"></div>
+                        </div>
+                        
+      				<p>Please Log In to continue:
+      				</p> 
+      <section> 
+        <form id="loginForm" action="j_security_check" method="post"> 
+          <p>Username: 
+            <input id="j_username" name="j_username" type="text"  required/> 
+          </p> 
+          <p>Password: 
+            <input type="password" id="j_password" name="j_password" size="25" required/> 
+                      
+          </p> 
+          <p> <input type="checkbox" name="remember" value=""/> Remember Me 
+          </p>
+          <p> 
+
+            <input type="submit" name="submit" id="submit" value="Submit"/>
+          </p> 
+        </form> 
+        <br />
+        <div class="separator" id="separator"> </div>
+        <p> Not a member? <a href="register.html"> REGISTER NOW </a></p>
 
 
+                    </div>
 
-                <tr>
-                    <td colspan="2" rowspan="2"><span class="titulo">SANGRE</span></td>
-                    <td width="24%"><input id="j_username" name="j_username" type="text" placeholder="name@mail.com" /></td>
-                    <td width="12%"><input type="submit" class="boton" value="SIGN IN" /></td>
-                </tr>
-                <tr>
-                    <td><input id="j_password" name="j_password" type="password" placeholder="*****"/></td>
-                    <td> <a href="register.html" class=""><span class="boton">SIGN UP</span></a></td>
-                    <td> <a href="mod.jsp" class=""><span class="boton"> MODIFICAR </span></a></td>
-                </tr>
-            </table>
+      </section>
+      <br />
+      
+                </div>
 
+		
 
+          </div>
 
+        <div class="footer"> <!-- Marking the footer section -->
 
+          <div class="line"></div>
+           
+           <p>Copyright 2011 - CoffeeBreak Team</p> <!-- Change the copyright notice -->
+           
+           <a href="#" class="up">Go UP</a>
+           <a href="" class="by">Chelen Productions</a>
+           
 
-
-
-        </form>
-
-
-    </div>
-
-
-</header>
-
-<div id="content">
-    <div id="map_canvas"></div>
-</div>
-</body>
+        </div>
+            
+		</div> <!-- Closing the #page section -->
+        
+        <!-- JavaScript Includes -->
+        
+    </body>
 </html>
