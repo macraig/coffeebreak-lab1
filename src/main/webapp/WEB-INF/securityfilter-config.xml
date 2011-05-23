@@ -19,9 +19,22 @@
    <login-config>
       <auth-method>FORM</auth-method>
       <form-login-config>
-         <form-login-page>/index.html</form-login-page>
+         <form-login-page>/welcome.html</form-login-page>
          <form-error-page>/error.html</form-error-page>
-         <form-default-page>/welcome.jsp</form-default-page>
+         <form-default-page>/index.jsp</form-default-page>
+         <remember-me className="org.securityfilter.authenticator.persistent.DefaultPersistentLoginManager">
+         <!-- optional settings for default persistent login manager -->
+            <remember-me-param name="cookieLife" value="15"/>
+            <remember-me-param name="protection" value="all"/>
+            <remember-me-param name="useIP" value="true"/>
+            <remember-me-param name="encryptionAlgorithm" value="DES"/>
+            <remember-me-param name="encryptionMode" value="ECB"/>
+            <remember-me-param name="encryptionPadding" value="PKCS5Padding"/>
+            <!-- encryption keys; customize for each application -->
+            <!-- NOTE: these kys must be speciied AFTER other encryption settings -->
+            <remember-me-param name="validationKey" value="347382902489402489754895734890347"/>
+            <remember-me-param name="encryptionKey" value="347892347028490237487846240673842"/>
+         </remember-me>
       </form-login-config>
    </login-config>
 
