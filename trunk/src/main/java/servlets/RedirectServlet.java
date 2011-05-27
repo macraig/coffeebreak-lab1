@@ -17,18 +17,18 @@ import java.io.IOException;
  * Time: 2:47 AM
  * To change this template use File | Settings | File Templates.
  */
-@WebServlet(name = "ModiServlet")
-public class ModiServlet extends HttpServlet {
-    User user;
-    UserDAO dao = new UserDAO();
+@WebServlet(name = "RedirectServlet")
+public class RedirectServlet extends HttpServlet {
 
  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            doGet(request,response);
 
+     User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0);
+     request.setAttribute("user",user);
+     request.getRequestDispatcher("mod.jsp").forward(request,response);
 
-       }
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+            doPost(request,response);
     }
 }

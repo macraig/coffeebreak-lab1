@@ -26,24 +26,25 @@
     </filter-mapping>
 
     <servlet>
-        <servlet-name>Register</servlet-name>
-        <servlet-class>servlets.RegServlet</servlet-class>
+        <servlet-name>UserServlet</servlet-name>
+        <servlet-class>servlets.UserServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Register</servlet-name>
-        <url-pattern>/register.do</url-pattern>
+        <servlet-name>UserServlet</servlet-name>
+        <url-pattern>/user.do</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>Modify</servlet-name>
-        <servlet-class>servlets.ModServlet</servlet-class>
+        <servlet>
+        <servlet-name>RedirectServlet</servlet-name>
+        <servlet-class> servlets.RedirectServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Modify</servlet-name>
-        <url-pattern>/mod.do</url-pattern>
+        <servlet-name>RedirectServlet</servlet-name>
+        <url-pattern>/redirect.do</url-pattern>
     </servlet-mapping>
+
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
