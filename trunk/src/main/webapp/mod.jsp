@@ -1,4 +1,3 @@
-<%@ page import="DAO.UserDAO" %>
 <%@ page import="model.User" %>
 <!DOCTYPE html>
 
@@ -43,7 +42,7 @@
 
     </head>
     
-<body>
+    <body>
 
     	<div class="section" id="page"> <!-- Defining the #page section with the section tag -->
     
@@ -81,7 +80,7 @@
 			<input type="text" name="name" id="name" required value="<%=request.getRemoteUser()%>" disabled="true"/>
 
             <label for="email">Email:</label>
-			<input type="email" name="mail" id="mail" value="<%=UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0).getEmail()%>" required /><br/>
+			<input type="email" name="mail" id="mail" value="<%=((User)request.getAttribute("User")).getEmail()%>" required /><br/>
 
             <label for="password">Password:</label>
 			<input type="password" id="pass" name="pass" placeholder="Enter your Password" required /><br/>
@@ -117,4 +116,5 @@
 
      </div>
     </body>
+
 </html>

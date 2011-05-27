@@ -52,7 +52,7 @@
                 <div class="nav clear"> <!-- The nav link semantically marks your main site navigation -->
                     <ul>
                         <li><a href="#article1">Home</a></li>
-                        <li><a href="mod.jsp">Options</a></li>
+                        <li><a href="/redirect.do">Options</a></li>
                         <li><a href="logout.jsp">Log Out</a></li>
                     </ul>
                 </div>
