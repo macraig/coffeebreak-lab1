@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table(name="USER")
 
@@ -15,6 +16,8 @@ public class User {
 	private String password;
     @Column(nullable = false,unique=true)
     private String email;
+    @Column(nullable = false)
+    private boolean isAdmin;
 	@Embedded @OneToOne
 	private Location lastLocation;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,10 +27,12 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Place> favouritePlaces;
 
+
 	public User(String name, String pass, String mail){
 		this.nickName=name;
 		this.password=pass;
         this.email=mail;
+        setAdmin(false);
         friends = new HashSet<User>();
         favouritePlaces = new HashSet<Place>();
 
@@ -95,6 +100,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+      public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }
 
