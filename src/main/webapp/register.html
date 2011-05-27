@@ -76,7 +76,7 @@
             <div class="articleBody clear">
 
 
-                <form action="register.do" method="post">
+                <form action="user.do" method="post">
 
                     <label for="name">Name:</label>
                     <input type="text" name="name" id="name" placeholder="Enter your User Name" required/>
@@ -87,6 +87,8 @@
 
                     <label for="email">Email:</label>
                     <input type="email" name="mail" id="mail" placeholder="Enter your email address" required/><br/>
+
+                    <input name="action" id="action" value="CREATE_USER" hidden="true"/>
 
                     <input type="submit" class="boton" value="Register"/>
 

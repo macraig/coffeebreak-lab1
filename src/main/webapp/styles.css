@@ -259,14 +259,14 @@ input[type=submit] {
 	font-size:1.25em;
 	font-weight:bold;
 	text-shadow: none;
-}
+
 	/*width: 185px; height: 52px; padding: 10px 15px; margin: 0px 11px 0px 200px;
 	/*-moz-box-shadow: 0px 0px 5px #999;-webkit-box-shadow: 0px 0px 5px #999;
 	border: 1px solid #556f8c;
 	background: -moz-linear-gradient(top, #718DA9 0%, #415D79 100%); /* firefox */
 	/*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#718DA9), color-stop(100%,#415D79)); /* webkit */
 	cursor: pointer;
-}
+    }
 
 #separator{
 	margin-bottom:100px;

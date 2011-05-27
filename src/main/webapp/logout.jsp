@@ -19,7 +19,7 @@
     session.invalidate();
 
 %>
-You have been logged out of CofeeBreak.<p>
+You have been logged out of CoffeeBreak.<p>
 
 </body>
 
