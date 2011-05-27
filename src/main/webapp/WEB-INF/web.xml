@@ -35,6 +35,16 @@
         <url-pattern>/register.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Modify</servlet-name>
+        <servlet-class>servlets.ModServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Modify</servlet-name>
+        <url-pattern>/mod.do</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class BaseDAO {
 	
-    public void persist(Object pojo) {
+    public static void persist(Object pojo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.saveOrUpdate(pojo);
