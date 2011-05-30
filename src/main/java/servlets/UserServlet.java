@@ -56,14 +56,10 @@ public class UserServlet extends HttpServlet {
         UserDAO.persist(user);
     }
 
-    private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User user = new User(request.getParameter("name"), request.getParameter("pass"), request.getParameter("mail"));
         dao.persist(user);
 
-
-        response.setContentType("text/html");
-        PrintWriter write = response.getWriter();
-        write.println("<html> <body> <h1> User creado con exito </h1> </body> </html>");
     }
 
 
