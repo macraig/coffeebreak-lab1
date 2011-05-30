@@ -57,7 +57,7 @@
 
         <div class="nav clear"> <!-- The nav link semantically marks your main site navigation -->
             <ul>
-                <li><a href="welcome.html">Home</a></li>
+                <li><a href="index.jsp">Home</a></li>
                 <li><a href="#">Options</a></li>
                 <li><a href="logout.jsp">Log Out</a></li>
             </ul>

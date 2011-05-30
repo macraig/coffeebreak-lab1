@@ -8,42 +8,8 @@
     <script type="text/javascript"
             src="http://maps.google.com/maps/api/js?sensor=false">
     </script>
-    <script type="text/javascript">
-        var map = null;
+    <script type="text/javascript" src="map.js"></script>
 
-        function loadMap() {
-
-            var mapLayout = document.getElementById("map_canvas");
-
-            var myOptions = {
-                zoom: 17,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-
-            map = new google.maps.Map(mapLayout, myOptions)
-
-            navigator.geolocation.getCurrentPosition(function(position) {
-
-                if (position.coords.latitude) {
-
-                    map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                } else {
-                    map.setCenter(-34, -30);
-
-                }
-
-            });
-
-            var marker = new google.maps.Marker({
-                position:new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-                title:"Hello World!"
-            });
-
-            marker.setMap(map);
-
-        }
-
-    </script>
 
 </head>
 
