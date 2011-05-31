@@ -80,7 +80,8 @@
             <div class="articleBody clear">
 
 
-                <form action="mod.do" method="post">
+                <form action="user.do" method="post">
+                <input value="MODIFY_USER" hidden="true" />
 
                     <label for="name">Name:</label>
                     <input type="text" name="name" id="name" required value="<%=request.getRemoteUser()%>"

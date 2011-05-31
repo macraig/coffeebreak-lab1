@@ -8,5 +8,5 @@ package servlets;
  * To change this template use File | Settings | File Templates.
  */
 public enum ActionName {
-    CREATE_USER,MODIFY_USER,CREATE_PLACE,MODIFY_PLACE
+    CREATE_USER,MODIFY_USER,ADD_FRIEND,CREATE_PLACE,MODIFY_PLACE
 }
