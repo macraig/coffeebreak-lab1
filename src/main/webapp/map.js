@@ -7,6 +7,7 @@
  */
 
 var map = null;
+var marker = null;
 
 function loadMap() {
 
@@ -19,24 +20,32 @@ function loadMap() {
 
     map = new google.maps.Map(mapLayout, myOptions);
 
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+                if (position.coords.latitude) {
+
+                    map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+
+                } else {
+                    map.setCenter(-34, -30);
+
+                }
+              marker =  new google.maps.Marker({
+            position: position,
+             });
+              marker.setMap(map);
+            });
 
 
 }
 
 
-navigator.geolocation.getCurrentPosition(function(position) {
-          initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-          contentString = "Location found using W3C standard";
-          map.setCenter(initialLocation);
-          var marker = new google.maps.Marker({
-            position: initialLocation,
-            title:"Hola Mili !" ,
-              animation: google.maps.Animation.DROP,
-            map: map
-          });
-        }, function() {
-          alert('AAAAAAAAAAAA');
-        });
+
+function createMarker(posicion, map){
+
+}
+
+
 
 $(document).ready(function() {
     loadMap();

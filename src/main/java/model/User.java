@@ -42,6 +42,10 @@ public class User {
      public User() {
     }
 
+    public void addFriend(User friend){
+       friends.add(friend);
+    }
+
 	public String getNickName(){
 		return nickName;
 	}

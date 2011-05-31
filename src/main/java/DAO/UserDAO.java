@@ -22,4 +22,17 @@ public class UserDAO extends BaseDAO {
 		return userList;
 	}
 
+    public static List<User> retrieveUserbyEmail(String aux) {
+		List<User> userList = new ArrayList<User>();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		try {
+			String query = "from User where email ='" + aux + "' ";
+			userList = session.createQuery(query).list();
+		} finally {
+			session.close();
+		}
+		return userList;
+	}
+
+
 }
