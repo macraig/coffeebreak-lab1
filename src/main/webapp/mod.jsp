@@ -1,5 +1,5 @@
 <%@ page import="model.User" %>
-<%@ page import="servlets.ActionName" %>
+<%@ page import="enums.ActionName" %>
 <!DOCTYPE html>
 
 <html>
