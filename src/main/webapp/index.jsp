@@ -26,7 +26,8 @@
         <div class="nav clear"> <!-- The nav link semantically marks your main site navigation -->
             <ul>
                 <li><a href="#article1">Home</a></li>
-                <li><a href="/redirect.do">Options</a></li>
+                <li><a href="/redirect.do?action=ADD_FRIEND">Friends</a></li>
+                <li><a href="/redirect.do?action=MODIFY_USER">Options</a></li>
                 <li><a href="logout.jsp">Log Out</a></li>
             </ul>
         </div>
@@ -59,7 +60,7 @@
             <p>Copyright 2011 - CoffeeBreak Team</p> <!-- Change the copyright notice -->
 
             <a href="#" class="up">Go UP</a>
-            <a href="" class="by">Chelen Productions</a>
+            <a href="" class="by">CoffeeBreak Team</a>
 
 
         </div>
