@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Servlet implementation class MyServlet
@@ -35,18 +38,20 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
+
         switch (ActionName.valueOf(request.getParameter("action"))) {
 
             case CREATE_USER:
                 createUser(request, response);
-                response.sendRedirect("index.jsp");
+                 response.sendRedirect("index.jsp");
                 break;
             case MODIFY_USER:
                 modifyUser(request, response);
-                response.sendRedirect("index.jsp");
+                 response.sendRedirect("index.jsp");
                 break;
             case ADD_FRIEND:
-                addFriend(request, response);
+                addFriend(request,response);
+                response.sendRedirect("index.jsp");
 
 
         }
@@ -55,55 +60,47 @@ public class UserServlet extends HttpServlet {
     }
 
     private void modifyUser(HttpServletRequest request, HttpServletResponse response) {
-
         User user = (User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0);
-        user.setEmail(request.getParameter("mail").toLowerCase());
-        user.setPassword(request.getParameter("pass").toLowerCase());
+        user.setEmail(request.getParameter("mail"));
+        user.setPassword(request.getParameter("pass"));
 
         UserDAO.persist(user);
     }
 
     private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String name = request.getParameter("name").toLowerCase();
-        String pass = request.getParameter("pass").toLowerCase();
-        String mail = request.getParameter("mail").toLowerCase();
-
-        if (UserDAO.retrieveUserbyNickName(name).equals(null)) {
-            if (UserDAO.retrieveUserbyEmail(mail).equals(null)) {
-                User user = new User(name, pass, request.getParameter("mail"));
-                dao.persist(user);
-                Emailer mailer = new Emailer();
-                String message = "Hola " + name + " ! El staff te da la bienvenida a CoffeeBreak! Username: " + name + " /n Password: " + pass;
-                mailer.sendMail(mail, "Bienvenido a CoffeeBreak", message);
-            }else{
-                 request.setAttribute("error", enums.Error.EMAIL_USED);
-                 response.sendRedirect("error.jsp");
-            }
-        }else{
-              request.setAttribute("error", Error.NICKNAME_USED);
-              response.sendRedirect("error.jsp");
-        }
+        String name = request.getParameter("name");
+        String pass = request.getParameter("pass");
+        User user = new User(name, pass, request.getParameter("mail"));
+        dao.persist(user);
+        Emailer mailer = new Emailer();
+        String message = "Hola "+name+" ! El staff te da la bienvenida a CoffeeBreak! Username: "+name+" Password: "+pass;
+        mailer.sendMail(request.getParameter("mail"),"Bienvenido a CoffeeBreak",message);
 
 
     }
 
-    private void addFriend(HttpServletRequest request, HttpServletResponse response) {
-        User user = (User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0);
-        User friend = (User) UserDAO.retrieveUserbyNickName(request.getParameter("email")).get(0);
-
-        String message = user.getNickName() + "<p> te ha enviado una invitacion a COFFEEBREAK.</p>" +
-                "<p>Ingresa a www.coffeebreakapp.com para registrarte!</p>";
+    private void addFriend(HttpServletRequest request, HttpServletResponse response){
+         User user = (User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0);
+         List<User> friendList =  UserDAO.retrieveUserbyEmail(request.getParameter("email"));
 
 
-        if (friend != null) {
-            user.getFriends().add(friend);
-            friend.getFriends().add(user);
-            dao.persist(user);
-            dao.persist(friend);
-        } else {
-            Emailer mailer = new Emailer();
-            mailer.sendMail("email", "Invitacion a COFFEEBREAK", message);
+        String message = user.getNickName()+" te ha enviado una invitacion a COFFEEBREAK Ingresa a www.coffeebreakapp.com.ar para registrarte";
+
+
+        if(friendList.size()!=0){
+           User friend = friendList.get(0);
+           user.getFriends().add(friend);
+           friend.getFriends().add(user);
+           dao.persist(user);
+           dao.persist(friend);
+        } else{
+           Emailer mailer = new Emailer();
+           mailer.sendMail(request.getParameter("email"),"Invitacion a COFFEEBREAK",message);
+
         }
+
+
+
 
     }
 }

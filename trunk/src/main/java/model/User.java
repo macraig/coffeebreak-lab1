@@ -22,7 +22,7 @@ public class User {
 	private Location lastLocation;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long userId;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<User> friends;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Place> favouritePlaces;
