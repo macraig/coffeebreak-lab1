@@ -1,4 +1,4 @@
-package servlets;
+package enums;
 
 /**
  * Created by IntelliJ IDEA.
