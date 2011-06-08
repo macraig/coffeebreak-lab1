@@ -73,8 +73,8 @@ public class UserServlet extends HttpServlet {
         User user = new User(name, pass, request.getParameter("mail"));
         dao.persist(user);
         Emailer mailer = new Emailer();
-        String message = "Hola "+name+" ! El staff te da la bienvenida a CoffeeBreak! Username: "+name+" Password: "+pass;
-        mailer.sendMail(request.getParameter("mail"),"Bienvenido a CoffeeBreak",message);
+        String message = "Welcome "+name+" ! The CoffeeBreak staff welcomes you to CoffeeBreak! Username: "+name+" Password: "+pass;
+        mailer.sendMail(request.getParameter("mail"),"Welcome to CoffeeBreak",message);
 
 
     }
@@ -84,7 +84,7 @@ public class UserServlet extends HttpServlet {
          List<User> friendList =  UserDAO.retrieveUserbyEmail(request.getParameter("email"));
 
 
-        String message = user.getNickName()+" te ha enviado una invitacion a COFFEEBREAK Ingresa a www.coffeebreakapp.com.ar para registrarte";
+        String message = user.getNickName()+" has sent you an invitation to COFFEEBREAK! Go to www.coffeebreakapp.com.ar to register";
 
 
         if(friendList.size()!=0){
@@ -95,7 +95,7 @@ public class UserServlet extends HttpServlet {
            dao.persist(friend);
         } else{
            Emailer mailer = new Emailer();
-           mailer.sendMail(request.getParameter("email"),"Invitacion a COFFEEBREAK",message);
+           mailer.sendMail(request.getParameter("email"),"COFFEEBREAK invitation",message);
 
         }
 
