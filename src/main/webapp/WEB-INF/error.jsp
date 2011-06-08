@@ -8,18 +8,19 @@
 </head>
 <body>
 
-        <%      switch (Error.valueOf(request.getParameter("error"))) {
+        <%  String html= "error";
+            switch (Error.valueOf(request.getParameter("error"))) {
 
                    case NICKNAME_USED:
-
+                        html="The nickname is already taken"
                    case EMAIL_USED:
-
+                         html="The email address is already in use"
 
                 }
 
 
 
         %>
-        <span style="font-size:25px;"> USER MAL LOGUEADO !! </span>
+        <span style="font-size:25px;"> <%= html%> > </span>
 </body></span>
 </html>
