@@ -1,10 +1,15 @@
+#page{
+	width:1200px;
+}
+
+
 #opt{
-	  width:			300px;
-	  margin-left: 1000px;
+	  width:			400px;
+	  margin-left: 600px;
 	float:right;
 
 }
 
 #article1{
-	width:60%;
+	width: 700px;
 }
