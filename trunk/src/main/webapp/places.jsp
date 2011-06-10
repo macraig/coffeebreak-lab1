@@ -1,11 +1,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.User" %>
 <%@ page import="java.util.Set" %>
+<%@ page import="model.Place" %>
 <!DOCTYPE HTML>
 <html>
 <head>
     <!-- <link rel="stylesheet" type="text/css" href="styles.css"/>       -->
-
 
 
 </head>
@@ -24,25 +24,20 @@
 
         <div class="article" id="article1">
             <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
-            <h2>FRIENDS</h2>
+            <h2>PLACES</h2>
 
             <div class="line"></div>
 
-            <form id="friendForm" action="user.do" method="post">
-                        <p>Search Friend:
-                            <input id="email" name="email" type="email" placeholder="Insert Friends Email" required/>
-                            <input type="submit" name="submit" id="submit" value="Search"/>
-                            <input name="action" value="ADD_FRIEND" hidden="true"/>
-                        </p>
-                    </form>
+            <p> To add a place select it from the map and clock on "Add to Favourites"</p>
 
             <TABLE>
                 <TR>
                     <TH>Select</TH>
                     <TH>Name</TH>
+                    <TH>Address</TH>
                     <TH>Options</TH>
                 </TR>
-                <% for (int i = 0; i < ((List)request.getAttribute("friends")).size() ; i++) { %>
+                <% for (int i = 0; i < ((List) request.getAttribute("places")).size(); i++) { %>
                 <TR>
                     <TD>
                         <CENTER>
@@ -50,7 +45,13 @@
                         </CENTER>
                     </TD>
                     <TD>
-                        <INPUT TYPE="TEXT" readonly="true" value="<%=((List<User>)request.getAttribute("friends")).get(i).getNickName()%>">
+                        <INPUT TYPE="TEXT" readonly="true"
+                               value="<%=((List<Place>)request.getAttribute("places")).get(i).getName()%>">
+
+                    </TD>
+                    <TD>
+                        <INPUT TYPE="TEXT" readonly="true"
+                               value="<%=((List<Place>)request.getAttribute("places")).get(i).getAddress()%>">
 
                     </TD>
                     <TD>

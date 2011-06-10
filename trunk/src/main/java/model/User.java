@@ -24,7 +24,7 @@ public class User {
 	private long userId;
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<User> friends;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Place> favouritePlaces;
 
 
