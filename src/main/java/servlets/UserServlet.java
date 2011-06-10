@@ -51,7 +51,7 @@ public class UserServlet extends HttpServlet {
                 break;
             case ADD_FRIEND:
                 addFriend(request,response);
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("/redirect.do?action=ADD_FRIEND");
 
 
         }

@@ -21,7 +21,7 @@
       <form-login-config>
          <form-login-page>/welcome.html</form-login-page>
          <form-error-page>/error.html</form-error-page>
-         <form-default-page>/index.jsp</form-default-page>
+         <form-default-page>/redirect.do?action=CHECK_ADMIN</form-default-page>
          <remember-me className="org.securityfilter.authenticator.persistent.DefaultPersistentLoginManager">
          <!-- optional settings for default persistent login manager -->
             <remember-me-param name="cookieLife" value="15"/>

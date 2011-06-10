@@ -36,7 +36,7 @@ var infowindow = new google.maps.InfoWindow({
 
 function loadMap() {
 
-    var mapLayout = document.getElementById("map_canvas");
+    var mapLayout = document.getElementById("example");
 
     var myOptions = {
         zoom: 17,

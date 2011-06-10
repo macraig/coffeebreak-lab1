@@ -2,6 +2,7 @@ package servlets;
 
 import DAO.UserDAO;
 import enums.ActionName;
+import model.Place;
 import model.User;
 
 import javax.servlet.ServletException;
@@ -37,9 +38,31 @@ public class RedirectServlet extends HttpServlet {
             case ADD_FRIEND:
                 addFriend(request, response);
                 break;
+            case SHOW_FAVOURITES:
+                showFavourites(request,response);
+                break;
+            case CHECK_ADMIN:
+                checkAdmin(request,response);
+                break;
 
         }
 
+
+    }
+
+    private void checkAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if (((User)UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0)).isAdmin()){
+            request.getRequestDispatcher("admin.jsp").forward(request,response);
+        } else {
+            request.getRequestDispatcher("index.jsp").forward(request,response);
+        }
+    }
+
+    private void showFavourites(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Set<Place> placeSet = ((User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0)).getFavouritePlaces();
+        ArrayList<Place> arrayList = new ArrayList<Place> (placeSet);
+        request.setAttribute("places", arrayList);
+        request.getRequestDispatcher("places.jsp").forward(request, response);
 
     }
 

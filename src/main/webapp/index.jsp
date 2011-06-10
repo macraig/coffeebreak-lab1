@@ -2,20 +2,16 @@
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
-    <link rel="stylesheet" type="text/css" href="styles.css"/>
-    <link rel="stylesheet" type="text/css" href="welcomeStyle.css"/>
-
-    <script type="text/javascript"
-            src="http://maps.google.com/maps/api/js?sensor=false">
-    </script>
+    <link rel="stylesheet" type="text/css" href="styleNew.css"/>
+    <script type="text/javascript" src="jquery/jquery-1.4.4.min.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script type="text/javascript" src="gmap3.js"></script>
     <script type="text/javascript" src="map.js"></script>
-
-
 </head>
 
-<body onLoad="loadMap()">
+<body onload="loadMap()">
 
-<div class="section" id="page"> <!-- Defining the #page section with the section tag -->
+<div class="section" id="page" style="height:90%"> <!-- Defining the #page section with the section tag -->
 
     <div class="header"> <!-- Defining the header section of the page with the appropriate tag -->
 
@@ -43,30 +39,48 @@
 
         <div class="article" id="article1">
             <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
-            <h2><%=request.getRemoteUser().toUpperCase()%>
-            </h2>
+            <div class="tabArea">
+
+                <h2><a class="tab" href="/redirect.do?action=ADD_FRIEND" target="tabIframe2"> Friends </a>
+
+                    <a class="tab" href="/redirect.do?action=SHOW_FAVOURITES" target="tabIframe2"> Places </a></h2>
+
+            </div>
+
 
             <div class="line"></div>
 
-            <div id="map_canvas"></div>
+
+            <iframe name="tabIframe2" src="/redirect.do?action=ADD_FRIEND" id="mainFrame" frameborder="0">
+                tu navegador no soporta iframes
+            </iframe>
+
+        </div>
+
+        <div class="article" id="article2">
+            <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
+            <h2><%=request.getRemoteUser().toUpperCase()%></h2>
+
+            <div class="line"></div>
+
+            <div id="example"></div>
 
 
         </div>
 
-        <div class="footer"> <!-- Marking the footer section -->
-
-            <div class="line"></div>
-
-            <p>Copyright 2011 - CoffeeBreak Team</p> <!-- Change the copyright notice -->
-
-            <a href="#" class="up">Go UP</a>
-            <a href="" class="by">CoffeeBreak Team</a>
-
-
-        </div>
 
     </div>
-    <!-- Closing the #page section -->
+    <div class="footer"> <!-- Marking the footer section -->
+
+        <div class="line"></div>
+
+        <p>Copyright 2011 - CoffeeBreak Team</p> <!-- Change the copyright notice -->
+
+        <a href="#" class="up">Go UP</a>
+        <a href="" class="by">CoffeeBreak Team</a>
+
+
+    </div>
 
 </div>
 
