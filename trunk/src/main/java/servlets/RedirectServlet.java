@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -70,6 +71,7 @@ public class RedirectServlet extends HttpServlet {
 
         Set<User> b = ((User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0)).getFriends();
         ArrayList<User> a = new ArrayList<User> (b);
+        Collections.sort(a);
         request.setAttribute("friends", a);
         request.getRequestDispatcher("friends.jsp").forward(request, response);
     }

@@ -22,7 +22,6 @@
         <div class="nav clear"> <!-- The nav link semantically marks your main site navigation -->
             <ul>
                 <li><a href="#article1">Home</a></li>
-                <li><a href="/redirect.do?action=ADD_FRIEND">Friends</a></li>
                 <li><a href="/redirect.do?action=MODIFY_USER">Options</a></li>
                 <li><a href="logout.jsp">Log Out</a></li>
             </ul>
@@ -41,12 +40,23 @@
             <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
             <div class="tabArea">
 
-                <h2><a class="tab" href="/redirect.do?action=ADD_FRIEND" target="tabIframe2"> Friends </a>
+                <h2>
 
-                    <a class="tab" href="/redirect.do?action=SHOW_FAVOURITES" target="tabIframe2"> Places </a></h2>
+                    <a class="tab" id="tab1" href="/redirect.do?action=ADD_FRIEND" target="tabIframe2"> Friends </a>
+                    <a class="tab" id="tab2" href="/redirect.do?action=SHOW_FAVOURITES" target="tabIframe2"> Places </a>
+                    <a class="tab" id="tab3" href="/redirect.do?action=SHOW_FAVOURITES" target="tabIframe2">
+                        Invites </a>
+
+                </h2>
 
             </div>
 
+            <%--            <ul id="navigation">
+                <li class="one"><a href="#">Details</a></li>
+                <li class="two"><a href="#">Schedule</a></li>
+                <li class="three selected"><a href="#">Speakers</a></li>
+                <li class="shadow"></li>
+            </ul>--%>
 
             <div class="line"></div>
 
@@ -59,7 +69,8 @@
 
         <div class="article" id="article2">
             <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
-            <h2><%=request.getRemoteUser().toUpperCase()%></h2>
+            <h2><%=request.getRemoteUser().toUpperCase()%>
+            </h2>
 
             <div class="line"></div>
 
@@ -83,6 +94,16 @@
     </div>
 
 </div>
+
+<%--<script type="text/javascript">
+$(document).ready(function(){
+	$("ul#navigation li a").click(function() {
+		$("ul#navigation li").removeClass("selected");
+		$(this).parents().addClass("selected");
+		return false;
+	});
+});
+</script>--%>
 
 </body>
 </html>
