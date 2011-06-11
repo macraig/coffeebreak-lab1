@@ -4,9 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <!-- <link rel="stylesheet" type="text/css" href="styles.css"/>       -->
-
-
+<link rel="stylesheet" type="text/css" href="styleFrame.css"/>
 
 </head>
 
@@ -24,19 +22,21 @@
 
         <div class="article" id="article1">
             <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
-            <h2>FRIENDS</h2>
+
 
             <div class="line"></div>
-
-            <form id="friendForm" action="user.do" method="post">
-                        <p>Search Friend:
-                            <input id="email" name="email" type="email" placeholder="Insert Friends Email" required/>
-                            <input type="submit" name="submit" id="submit" value="Search"/>
+			<!-- <span id="title"> FRIENDS </span>  -->
+    <form id="friendForm" action="user.do" method="post">
+              
+                            
+              <span id="searchFriend">
+              <input id="email" name="email" type="email" placeholder="Add a CoffeeBreak Friend" required/>
+                            <input type="submit" name="submit" id="submit" value="Add Friend"/>
                             <input name="action" value="ADD_FRIEND" hidden="true"/>
-                        </p>
-                    </form>
+              </span>
+        </form>
 
-            <TABLE>
+            <%--<TABLE>
                 <TR>
                     <TH>Select</TH>
                     <TH>Name</TH>
@@ -63,7 +63,25 @@
                     </TD>
                 </TR>
                 <% } %>
-            </TABLE>
+            </TABLE>--%>
+
+            <% for (int i = 0; i < ((List) request.getAttribute("friends")).size(); i++) { %>
+
+            <div class="contact">
+                <p class="name"><%=((List<User>)request.getAttribute("friends")).get(i).getNickName().toUpperCase()%>
+                    <img src="img/user-icon.png" alt="User Icon">
+                </p>
+
+                <p class="location"> Last Known Location: <span class="adress">1485 Invented Avenue </span></p>
+
+
+                <div class="buttons">
+                  <input type="button" value="Locate"/>
+                  <input type="button" value="Send Invite"/>
+                </div>
+            </div>
+
+            <% } %>
 
 
         </div>
@@ -72,6 +90,5 @@
     <!-- Closing the #page section -->
 
 </div>
-
 </body>
 </html>

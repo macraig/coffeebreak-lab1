@@ -8,7 +8,7 @@ import java.util.Set;
 @Entity
 @Table(name="USER")
 
-public class User {
+public class User implements Comparable{
 	
 	@Column(name= "USER_NICKNAME", nullable = false, unique=true)
 	private String nickName;
@@ -111,6 +111,10 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public int compareTo(Object o) {
+        return this.getNickName().compareTo(((User)o).getNickName());
     }
 }
 

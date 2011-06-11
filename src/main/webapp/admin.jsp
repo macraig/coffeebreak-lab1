@@ -28,7 +28,6 @@
         <div class="nav clear"> <!-- The nav link semantically marks your main site navigation -->
             <ul>
                 <li><a href="#article1">Home</a></li>
-                <li><a href="/redirect.do?action=ADD_FRIEND">Friends</a></li>
                 <li><a href="/redirect.do?action=MODIFY_USER">All Users</a></li>
                 <li><a href="/redirect.do?action=MODIFY_USER">Place Suggestions</a></li>
                 <li><a href="/redirect.do?action=MODIFY_USER">Options</a></li>

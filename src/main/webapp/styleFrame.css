@@ -1,0 +1,97 @@
+input[type="text"] {
+    background: -moz-linear-gradient(center top , #546A7F 0%, #355664 20%) repeat scroll 0 0 transparent;
+    border-color: #142830;
+    background: #355664;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 0 #0D3E59;
+    color: #999999;
+    height: 35px;
+    margin-left: 5px;
+    padding: 5px 5px 0;
+    width: 200px;
+}
+/*input[type="checkbox"] {
+    background: none repeat scroll 0 0 transparent;
+    height: auto;
+    margin-left: 100px;
+    width: auto;
+}*/
+input[type="submit"], input[type="button"] {
+    background: url("img/gradient_light.jpg") repeat-x scroll 50% 50% transparent;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 0 #0D3E59;
+    border: 1px solid #FCFCFC;
+    box-shadow: 0 1px 1px #333333;
+    color: #565656;
+    cursor: pointer;
+    text-shadow: none;
+
+}
+
+
+/*Style for contact */
+
+.contact {
+	background: -moz-linear-gradient(center top , #546A7F 0%, #355664 20%) repeat scroll 0 0 transparent;
+    border-color: #142830;
+    background: #355664;
+    border-radius: 5px 5px 5px 5px;
+    font-size:0.825em;
+	color:#fcfcfc;
+	font-family:Arial, Helvetica, sans-serif;
+    box-shadow: 0 1px 0 #0D3E59;
+	width:80%;
+	margin:10px auto;
+}
+
+.name {
+	padding-top: 2em;
+	font-weight: bold;
+	font-size: 1.1em;
+}
+
+.buttons {
+	width:180px;
+	margin: 5px auto;
+
+
+}
+
+p.email {
+	padding-bottom: 2em;
+}
+
+.contact img {
+	float: right;
+	padding-right: 1em;
+	margin-top: -1em
+}
+
+.contact p {
+	margin-left: 1em;
+}
+
+#title{
+	color:#355664;
+	font-family:"Myriad Pro","Helvetica Neue",Helvetica,Arial,Sans-Serif;
+	text-shadow:0 1px 1px black;
+	font-size:2.2em;
+	font-weight:normal;
+	letter-spacing:0.01em;
+	text-transform:uppercase;
+	text-align: left;
+}
+
+#friendForm{
+	width: 229px;
+	margin-left: auto;
+    margin-right: auto;
+}
+.location{
+	font-size:0.7em;
+
+}
+
+.adress{
+	font-size:1.5em;
+}
