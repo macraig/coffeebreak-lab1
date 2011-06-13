@@ -50,7 +50,9 @@ function loadMap() {
         if (position.coords.latitude) {
             pos = position;
             map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-
+       $.ajax({
+   url: "/user.do?action=UPDATE_LOCATION&latitude="+pos.coords.latitude+"&longitude="+pos.coords.longitude
+});
 
         } else {
             map.setCenter(-34, -30);
@@ -60,6 +62,7 @@ function loadMap() {
                     position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
                     animation: google.maps.Animation.DROP
                 });
+
         marker.setMap(map);
 
             google.maps.event.addListener(marker, 'click', function() {

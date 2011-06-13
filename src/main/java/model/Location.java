@@ -7,22 +7,22 @@ import javax.persistence.*;
 @Embeddable
 public class Location {
 	@Column(name="LONGITUDE")
-	private long longitude;
+	private double longitude;
 	@Column(name="LATITUDE")
-	private long latitude;
+	private double latitude;
     @Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long locationId;
 	
-	public Location (long lati, long longi){
-		this.longitude=longi;
-		this.latitude=lati;
+	public Location (double lat, double lng){
+		this.longitude=lng;
+		this.latitude=lat;
 	}
 
     public Location() {
     }
 
-    public long getLongitude() {
+    public double getLongitude() {
 		return longitude;
 	}
 
@@ -30,7 +30,7 @@ public class Location {
 		this.longitude = longitude;
 	}
 
-	public long getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 

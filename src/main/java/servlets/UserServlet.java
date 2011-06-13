@@ -1,8 +1,10 @@
 package servlets;
 
+import DAO.LocationDAO;
 import DAO.UserDAO;
 import enums.*;
 import enums.Error;
+import model.Location;
 import model.User;
 import services.Emailer;
 
@@ -52,11 +54,23 @@ public class UserServlet extends HttpServlet {
             case ADD_FRIEND:
                 addFriend(request,response);
                 response.sendRedirect("/redirect.do?action=ADD_FRIEND");
-
+                break;
+            case UPDATE_LOCATION:
+                System.out.println("UPDATE LOCATIONNNNNNNNNNNNNNNNNNNN Parametros :  lat: "+request.getParameter("latitude")+"  long: "+request.getParameter("longitude"));
+                updateLocation(request,response);
+                break;
 
         }
 
 
+    }
+
+    private void updateLocation(HttpServletRequest request, HttpServletResponse response) {
+        User user = (User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0);
+        Location location = new Location(Double.parseDouble(request.getParameter("latitude")),Double.parseDouble(request.getParameter("longitude")));
+        LocationDAO.persist(location);
+        user.setLastLocation(location);
+        UserDAO.persist(user);
     }
 
     private void modifyUser(HttpServletRequest request, HttpServletResponse response) {
@@ -90,9 +104,10 @@ public class UserServlet extends HttpServlet {
         if(friendList.size()!=0){
            User friend = friendList.get(0);
            user.getFriends().add(friend);
-           friend.getFriends().add(user);
+            //user.getFriends().
+          // friend.getFriends().add(user);
            dao.persist(user);
-           dao.persist(friend);
+         //  dao.persist(friend);
         } else{
            Emailer mailer = new Emailer();
            mailer.sendMail(request.getParameter("email"),"COFFEEBREAK invitation",message);
