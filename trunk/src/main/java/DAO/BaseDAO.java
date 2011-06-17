@@ -3,7 +3,8 @@ package DAO;
 import hibernate.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.classic.Session;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,30 +13,27 @@ import java.util.List;
 public class BaseDAO {
 	
     public static void persist(Object pojo) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            session.saveOrUpdate(pojo);
-            session.beginTransaction().commit();
+            HibernateUtil.getSession().saveOrUpdate(pojo);
+            HibernateUtil.beginTransaction();
+            HibernateUtil.commitTransaction();
         } catch (HibernateException e) {
             e.printStackTrace();
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
+            HibernateUtil.rollbackTransaction();
         }
     }
     
 
 
     public static void delete(Object pojo) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        org.hibernate.Session session = HibernateUtil.getSession();
         try {
-            session.delete(pojo);
-            session.beginTransaction().commit();
+            HibernateUtil.getSession().delete(pojo);
+            HibernateUtil.beginTransaction();
+            HibernateUtil.commitTransaction();
         } catch (HibernateException e) {
             e.printStackTrace();
-            session.getTransaction().rollback();
-        } finally {
-            session.close();
+            HibernateUtil.rollbackTransaction();
         }
     }
 
@@ -47,14 +45,7 @@ public class BaseDAO {
     }
 
     public static <T> List<T> retrieveObject(T object, Query query) {
-        List<T> list = new ArrayList<T>();
-        org.hibernate.classic.Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            list = query.list();
-        } finally {
-            session.close();
-        }
-        return list;
+        return query.list();
     }
 
 }

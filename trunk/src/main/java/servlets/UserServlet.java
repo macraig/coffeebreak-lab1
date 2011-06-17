@@ -66,7 +66,7 @@ public class UserServlet extends HttpServlet {
     }
 
     private void updateLocation(HttpServletRequest request, HttpServletResponse response) {
-        User user = (User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0);
+        User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
         Location location = new Location(Double.parseDouble(request.getParameter("latitude")),Double.parseDouble(request.getParameter("longitude")));
         LocationDAO.persist(location);
         user.setLastLocation(location);
@@ -74,7 +74,7 @@ public class UserServlet extends HttpServlet {
     }
 
     private void modifyUser(HttpServletRequest request, HttpServletResponse response) {
-        User user = (User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0);
+        User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
         user.setEmail(request.getParameter("mail"));
         user.setPassword(request.getParameter("pass"));
 
@@ -94,14 +94,14 @@ public class UserServlet extends HttpServlet {
     }
 
     private void addFriend(HttpServletRequest request, HttpServletResponse response){
-         User user = (User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0);
+         User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
          List<User> friendList =  UserDAO.retrieveUserbyEmail(request.getParameter("email"));
 
 
         String message = user.getNickName()+" has sent you an invitation to COFFEEBREAK! Go to www.coffeebreakapp.com.ar to register";
 
 
-        if(friendList.size()!=0){
+        if(!friendList.isEmpty()){
            User friend = friendList.get(0);
            user.getFriends().add(friend);
             //user.getFriends().
@@ -113,9 +113,5 @@ public class UserServlet extends HttpServlet {
            mailer.sendMail(request.getParameter("email"),"COFFEEBREAK invitation",message);
 
         }
-
-
-
-
     }
 }

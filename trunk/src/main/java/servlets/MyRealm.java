@@ -9,7 +9,7 @@ public class MyRealm extends SimpleSecurityRealmBase {
     public boolean booleanAuthenticate(String username, String password) {
         User user = null;
         try{
-            user = UserDAO.retrieveUserbyNickName(username).get(0);
+            user = UserDAO.retrieveUserbyNickName(username);
         }catch(IndexOutOfBoundsException e){
             return false;
         }

@@ -52,7 +52,7 @@ public class RedirectServlet extends HttpServlet {
     }
 
     private void checkAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (((User)UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0)).isAdmin()){
+        if (UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isAdmin()){
             request.getRequestDispatcher("admin.jsp").forward(request,response);
         } else {
             request.getRequestDispatcher("index.jsp").forward(request,response);
@@ -60,7 +60,7 @@ public class RedirectServlet extends HttpServlet {
     }
 
     private void showFavourites(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Set<Place> placeSet = ((User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0)).getFavouritePlaces();
+        Set<Place> placeSet = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFavouritePlaces();
         ArrayList<Place> arrayList = new ArrayList<Place> (placeSet);
         request.setAttribute("places", arrayList);
         request.getRequestDispatcher("places.jsp").forward(request, response);
@@ -69,7 +69,7 @@ public class RedirectServlet extends HttpServlet {
 
     private void addFriend(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        Set<User> b = ((User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0)).getFriends();
+        Set<User> b = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFriends();
         ArrayList<User> a = new ArrayList<User> (b);
         Collections.sort(a);
         request.setAttribute("friends", a);
@@ -78,7 +78,7 @@ public class RedirectServlet extends HttpServlet {
 
     private void modifyUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0);
+        User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
         request.setAttribute("user", user);
         request.getRequestDispatcher("mod.jsp").forward(request, response);
 

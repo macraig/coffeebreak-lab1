@@ -8,21 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceDAO extends BaseDAO {
-	
-	public static List<Place> retrievePlacesbyName(String name) {
-		List<Place> placeList = new ArrayList<Place>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			String query = "from Place where name ='" + name + "' ";
-			placeList = session.createQuery(query).list();
-		} finally {
-			session.close();
-		}
-		return placeList;
-	}
-	
 
-	
+    public static List<Place> retrievePlacesbyName(String name) {
+        List<Place> placeList = new ArrayList<Place>();
+        Session session = HibernateUtil.getSession();
+        String query = "from Place where name ='" + name + "' ";
+        placeList = session.createQuery(query).list();
+        return placeList;
+    }
+
+
+
 
 
 }
