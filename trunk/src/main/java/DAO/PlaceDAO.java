@@ -9,12 +9,12 @@ import java.util.List;
 
 public class PlaceDAO extends BaseDAO {
 
-    public static List<Place> retrievePlacesbyName(String name) {
-        List<Place> placeList = new ArrayList<Place>();
+    public static Place retrievePlacesbyName(String name) {
+        Place result = null;
         Session session = HibernateUtil.getSession();
         String query = "from Place where name ='" + name + "' ";
-        placeList = session.createQuery(query).list();
-        return placeList;
+        result = (Place) session.createQuery(query).list();
+        return result;
     }
 
 
