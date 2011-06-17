@@ -13,7 +13,7 @@
 </head>
 
 <body onload="loadMap()">
-<% if (!((User) UserDAO.retrieveUserbyNickName(request.getRemoteUser()).get(0)).isAdmin()){
+<% if (!UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isAdmin()){
             request.getRequestDispatcher("index.jsp").forward(request,response);
 } %>
 

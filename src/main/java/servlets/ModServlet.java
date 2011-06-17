@@ -22,7 +22,7 @@ public class ModServlet extends HttpServlet {
 
 
  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-     User user = (User)UserDAO.retrieveUserbyNickName(request.getRemoteUser());
+     User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
      user.setEmail(request.getParameter("mail"));
      user.setPassword(request.getParameter("pass"));
 

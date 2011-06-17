@@ -35,9 +35,9 @@
         <url-pattern>/user.do</url-pattern>
     </servlet-mapping>
 
-        <servlet>
+    <servlet>
         <servlet-name>RedirectServlet</servlet-name>
-        <servlet-class> servlets.RedirectServlet</servlet-class>
+        <servlet-class>servlets.RedirectServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -45,9 +45,18 @@
         <url-pattern>/redirect.do</url-pattern>
     </servlet-mapping>
 
+    <listener>
+        <listener-class>
+            servlets.MySessionListener
+        </listener-class>
+    </listener>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+
+     <session-config>
+      <session-timeout>30</session-timeout>
+    </session-config>
 
 </web-app>

@@ -10,29 +10,21 @@ import java.util.List;
 
 public class UserDAO extends BaseDAO {
 
-	public static List<User> retrieveUserbyNickName(String aux) {
-		List<User> userList = new ArrayList<User>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			String query = "from User where nickName ='" + aux + "' ";
-			userList = session.createQuery(query).list();
-		} finally {
-			session.close();
-		}
-		return userList;
-	}
+    public static User retrieveUserbyNickName(String aux) {
+        User result = null;
+        Session session = HibernateUtil.getSession();
+        String query = "from User where nickName ='" + aux + "' ";
+        result = (User) session.createQuery(query).uniqueResult();
+        return result;
+    }
 
     public static List<User> retrieveUserbyEmail(String aux) {
-		List<User> userList = new ArrayList<User>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		try {
-			String query = "from User where email ='" + aux + "' ";
-			userList = session.createQuery(query).list();
-		} finally {
-			session.close();
-		}
-		return userList;
-	}
+        List<User> userList = new ArrayList<User>();
+        Session session = HibernateUtil.getSession();
+        String query = "from User where email ='" + aux + "' ";
+        userList = session.createQuery(query).list();
+        return userList;
+    }
 
 
 }
