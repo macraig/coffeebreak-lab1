@@ -95,14 +95,14 @@ public class UserServlet extends HttpServlet {
 
     private void addFriend(HttpServletRequest request, HttpServletResponse response){
          User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
-         List<User> friendList =  UserDAO.retrieveUserbyEmail(request.getParameter("email"));
+         User friend =  UserDAO.retrieveUserbyEmail(request.getParameter("email"));
 
 
         String message = user.getNickName()+" has sent you an invitation to COFFEEBREAK! Go to www.coffeebreakapp.com.ar to register";
 
 
-        if(!friendList.isEmpty()){
-           User friend = friendList.get(0);
+        if(friend!=null){
+
            user.getFriends().add(friend);
             //user.getFriends().
           // friend.getFriends().add(user);
