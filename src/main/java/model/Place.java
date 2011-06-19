@@ -24,8 +24,15 @@ public class Place {
 		this.name=name;
 		this.address=address;
 	}
-	
-	public void setName(String name) {
+
+    public Place(String name, String address, Location location) {
+         this.name=name;
+        this.location=location;
+        this.address=address;
+
+    }
+
+    public void setName(String name) {
 		this.name = name;
 	}
 	public String getName() {
