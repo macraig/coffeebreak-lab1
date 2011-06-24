@@ -64,7 +64,9 @@ function getPlaces() {
                 });
         var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(json[i + 2], json[i + 3]),
+                   // icon: '..\img\coffee.jpg',
                     animation: google.maps.Animation.DROP
+
                 });
         marker.setMap(map);
         google.maps.event.addListener(marker, 'click', function() {

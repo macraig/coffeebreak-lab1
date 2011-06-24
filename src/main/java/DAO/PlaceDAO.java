@@ -22,6 +22,12 @@ public class PlaceDAO extends BaseDAO {
 
      }
 
-
+    public static Place retrievePlacesbyId(long id) {
+        Place result = null;
+        Session session = HibernateUtil.getSession();
+        String query = "from Place where placeId ='" + id + "' ";
+        result = (Place) session.createQuery(query).list();
+        return result;
+    }
 
 }

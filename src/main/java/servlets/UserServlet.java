@@ -1,11 +1,14 @@
 package servlets;
 
 import DAO.LocationDAO;
+import DAO.PlaceDAO;
 import DAO.UserDAO;
 import enums.*;
 import enums.Error;
 import model.Location;
+import model.Place;
 import model.User;
+import net.sf.json.JSONArray;
 import services.Emailer;
 
 import javax.servlet.ServletException;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -56,11 +60,26 @@ public class UserServlet extends HttpServlet {
                 response.sendRedirect("/redirect.do?action=ADD_FRIEND");
                 break;
             case UPDATE_LOCATION:
-                System.out.println("UPDATE LOCATIONNNNNNNNNNNNNNNNNNNN Parametros :  lat: "+request.getParameter("latitude")+"  long: "+request.getParameter("longitude"));
                 updateLocation(request,response);
                 break;
+            case PLACE_FRIENDS:
+                sendFriendsJson(request,response);
+                break;
+            case ADD_FAVOURITE:
+                addFavouritePlace(request,response);
 
         }
+
+
+    }
+
+    private void addFavouritePlace(HttpServletRequest request, HttpServletResponse response) {
+        Place place = PlaceDAO.retrievePlacesbyId(Long.valueOf(request.getParameter("place")));
+        User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
+        if(!user.getFavouritePlaces().contains(place)){
+                user.getFavouritePlaces().add(place);
+        }
+
 
 
     }
@@ -90,13 +109,11 @@ public class UserServlet extends HttpServlet {
         String message = "Welcome "+name+" ! The CoffeeBreak staff welcomes you to CoffeeBreak! Username: "+name+" Password: "+pass;
         mailer.sendMail(request.getParameter("mail"),"Welcome to CoffeeBreak",message);
 
-
     }
 
     private void addFriend(HttpServletRequest request, HttpServletResponse response){
          User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
          User friend =  UserDAO.retrieveUserbyEmail(request.getParameter("email"));
-
 
         String message = user.getNickName()+" has sent you an invitation to COFFEEBREAK! Go to www.coffeebreakapp.com.ar to register";
 
@@ -104,14 +121,49 @@ public class UserServlet extends HttpServlet {
         if(friend!=null){
 
            user.getFriends().add(friend);
-            //user.getFriends().
-          // friend.getFriends().add(user);
-           dao.persist(user);
-         //  dao.persist(friend);
+          friend.getFriends().add(user);
+          dao.persist(user);
+         dao.persist(friend);
         } else{
            Emailer mailer = new Emailer();
            mailer.sendMail(request.getParameter("email"),"COFFEEBREAK invitation",message);
 
         }
     }
+
+public String toJSONString(List<User> friends) {
+         JSONArray jsonFriends = new JSONArray();
+         for(User friend: friends){
+            jsonFriends.put(friend.getNickName());
+            jsonFriends.put(friend.getLastLocation().getLatitude());
+            jsonFriends.put(friend.getLastLocation().getLongitude());
+        }
+       return jsonFriends.toString();
+   }
+
+     public void sendFriendsJson(HttpServletRequest request, HttpServletResponse response) {
+
+       List<User> friends = new ArrayList<User>(UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFriends());
+
+       String json = toJSONString(friends);
+
+       response.setContentType("text/json");
+       PrintWriter writer = null;
+       try
+       {
+           writer = response.getWriter();
+           writer.write(json);
+       } catch (
+               IOException e
+               )
+       {
+           e.printStackTrace();
+       } finally{
+           writer.flush();
+           writer.close();
+       }
+     }
+
+
+
 }
