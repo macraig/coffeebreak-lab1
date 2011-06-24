@@ -4,7 +4,6 @@ import DAO.PlaceDAO;
 import enums.ActionName;
 import model.Place;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -59,6 +57,7 @@ public class PlaceServlet extends HttpServlet {
             jsonPlaces.put(place.getAddress());
             jsonPlaces.put(place.getLocation().getLatitude());
             jsonPlaces.put(place.getLocation().getLongitude());
+             jsonPlaces.put(place.getId());
         }
        return jsonPlaces.toString();
    }

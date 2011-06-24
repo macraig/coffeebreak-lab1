@@ -15,45 +15,26 @@ var lastInfoWindow = null;
 var contentString = '<div id="content">' +
         '<div id="siteNotice">' +
         '</div>' +
-        '<h1 id="windowName"> Name</h1>' +
-        '<div id="bodyContent">' +
-        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-        'sandstone rock formation in the southern part of the ' +
-        'Northern Territory, central Australia. It lies 335 km (208 mi) ' +
-        'south west of the nearest large town, Alice Springs; 450 km ' +
-        '(280 mi) by road. Kata Tjuta and Uluru are the two major ' +
-        'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
-        'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
-        'Aboriginal people of the area. It has many springs, waterholes, ' +
-        'rock caves and ancient paintings. Uluru is listed as a World ' +
-        'Heritage Site.</p>' +
-        '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-        'http://en.wikipedia.org/w/index.php?title=Uluru</a> (last visited June 22, 2009).</p>' +
-        '</div>' +
-        '</div>';
+        '<h1 id="windowName"> You Are Here</h1>';
 
 var infowindow = new google.maps.InfoWindow({
             content: contentString
         });
 
-function createContent(name, address) {
+function createContent(name, address, id) {
     var contentString = '<div id="infoWindow">' +
-            '<div id="favButton">' +
-            <button>
-            '</div>  +
+
             '<h1 id="windowName">' + name + '  </h1>' +
             '<div id="bodyContent">' +
-            'Adress : ' + address +
-            '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-            'http://en.wikipedia.org/w/index.php?title=Uluru</a> (last visited June 22, 2009).</p>' +
-            '</div>' +
-            '</div>';
+            'Address : ' + address +
+            '<p> <a href="/user.do?action=ADD_FAVOURITE&place_id="'+id+'> ' + 'Add to Favourites</p>' +
+            '</div>' ;
     return contentString;
 }
 
 function getPlaces() {
     var json = getJson("http://" + window.location.host + "/place.do?action=PLACE_MARKERS");
-    for (var i = 0; i < json.length; i += 4) {
+    for (var i = 0; i < json.length; i += 5) {
 
         var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(json[i + 2], json[i + 3]),
@@ -62,7 +43,7 @@ function getPlaces() {
 
                 });
         marker.setMap(map);
-        addInfoWindow(marker, createContent(json[i], json[i + 1]))
+        addInfoWindow(marker, createContent(json[i], json[i + 1],json[i+4]))
        // var infoMarker = new InfoMarker().startupInfoMarker(marker, infowindow);
 
        // markersMap.put(infoMarker.marker.getPosition(), infoMarker);

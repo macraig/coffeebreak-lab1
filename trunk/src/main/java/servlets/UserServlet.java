@@ -3,8 +3,7 @@ package servlets;
 import DAO.LocationDAO;
 import DAO.PlaceDAO;
 import DAO.UserDAO;
-import enums.*;
-import enums.Error;
+import enums.ActionName;
 import model.Location;
 import model.Place;
 import model.User;
@@ -20,7 +19,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Servlet implementation class MyServlet
@@ -60,13 +58,14 @@ public class UserServlet extends HttpServlet {
                 response.sendRedirect("/redirect.do?action=ADD_FRIEND");
                 break;
             case UPDATE_LOCATION:
-                updateLocation(request,response);
+                updateLocation(request, response);
                 break;
             case PLACE_FRIENDS:
                 sendFriendsJson(request,response);
                 break;
             case ADD_FAVOURITE:
                 addFavouritePlace(request,response);
+                response.sendRedirect("index.jsp");
 
         }
 
@@ -74,7 +73,10 @@ public class UserServlet extends HttpServlet {
     }
 
     private void addFavouritePlace(HttpServletRequest request, HttpServletResponse response) {
-        Place place = PlaceDAO.retrievePlacesbyId(Long.valueOf(request.getParameter("place")));
+        System.out.println("EL VALOR DEL STRINGGGGGGGGG");
+        System.out.println(request.getParameter("place_id"));
+
+        Place place = PlaceDAO.retrievePlacesbyId(Long.valueOf(request.getParameter("place_id")));
         User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
         if(!user.getFavouritePlaces().contains(place)){
                 user.getFavouritePlaces().add(place);
