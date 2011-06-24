@@ -15,6 +15,7 @@
 		<mapping class="model.Location"/>	
 		<mapping class="model.User" />
 		<mapping class="model.Place"/>
+        <mapping class="model.Invitation"/>
 			
 	</session-factory>
 </hibernate-configuration>

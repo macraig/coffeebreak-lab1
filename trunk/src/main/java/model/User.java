@@ -2,6 +2,7 @@ package model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -26,6 +27,9 @@ public class User implements Comparable{
 	private Set<User> friends;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Place> favouritePlaces;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Invitation> invitations;
+
 
 
 	public User(String name, String pass, String mail){
@@ -116,5 +120,15 @@ public class User implements Comparable{
     public int compareTo(Object o) {
         return this.getNickName().compareTo(((User)o).getNickName());
     }
+
+    public Set<Invitation> getInvitations() {
+        return invitations;
+    }
+
+    public void addInvitation (Invitation invitation) {
+        invitations.add(invitation);
+    }
+
+
 }
 
