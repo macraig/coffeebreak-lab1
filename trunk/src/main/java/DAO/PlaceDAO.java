@@ -17,7 +17,10 @@ public class PlaceDAO extends BaseDAO {
         return result;
     }
 
+     public static List<Place> retrievePlaceList() {
+       return HibernateUtil.getSession().createCriteria(Place.class).list();
 
+     }
 
 
 
