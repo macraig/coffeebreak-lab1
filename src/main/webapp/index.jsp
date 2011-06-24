@@ -4,9 +4,12 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" type="text/css" href="styleNew.css"/>
     <script type="text/javascript" src="jquery/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="HashMap.js"></script>
     <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
     <script type="text/javascript" src="gmap3.js"></script>
     <script type="text/javascript" src="map.js"></script>
+    <script type="text/javascript" src="InfoMarker.js"></script>
+
 </head>
 
 <body onload="loadMap()">
