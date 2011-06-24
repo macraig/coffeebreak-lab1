@@ -46,11 +46,15 @@ public class RedirectServlet extends HttpServlet {
             case CHECK_ADMIN:
                 checkAdmin(request, response);
                 break;
+            case ADD_FAVOURITE:
+//                addFavourite(request,response);
+                break;
 
         }
 
 
     }
+
 
     private void checkAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isAdmin()) {
