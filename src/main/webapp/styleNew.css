@@ -381,3 +381,15 @@ html body div#page.section div.section div#article1.article div.tabArea h2 {
     margin-left: auto;
     margin-right: auto;
 }
+
+
+/* Sryle de los blobs */
+
+#infoWindow {
+    color: #0D3E59;
+    text-shadow: none;
+}
+
+#windowName {
+    font-size: 2em;
+}

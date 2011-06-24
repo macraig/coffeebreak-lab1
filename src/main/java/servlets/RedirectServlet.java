@@ -2,6 +2,7 @@ package servlets;
 
 import DAO.UserDAO;
 import enums.ActionName;
+import model.Invitation;
 import model.Place;
 import model.User;
 
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,8 +29,6 @@ public class RedirectServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-
-
         switch (ActionName.valueOf(request.getParameter("action"))) {
 
             case MODIFY_USER:
@@ -40,10 +38,13 @@ public class RedirectServlet extends HttpServlet {
                 addFriend(request, response);
                 break;
             case SHOW_FAVOURITES:
-                showFavourites(request,response);
+                showFavourites(request, response);
+                break;
+            case SHOW_INVITATIONS:
+                showInvitations(request, response);
                 break;
             case CHECK_ADMIN:
-                checkAdmin(request,response);
+                checkAdmin(request, response);
                 break;
 
         }
@@ -52,25 +53,35 @@ public class RedirectServlet extends HttpServlet {
     }
 
     private void checkAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isAdmin()){
-            request.getRequestDispatcher("admin.jsp").forward(request,response);
+        if (UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isAdmin()) {
+            request.getRequestDispatcher("admin.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("index.jsp").forward(request,response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 
     private void showFavourites(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Set<Place> placeSet = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFavouritePlaces();
-        ArrayList<Place> arrayList = new ArrayList<Place> (placeSet);
+        ArrayList<Place> arrayList = new ArrayList<Place>(placeSet);
         request.setAttribute("places", arrayList);
         request.getRequestDispatcher("places.jsp").forward(request, response);
+
+    }
+
+    private void showInvitations(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+
+        Set<Invitation> invitations = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getInvitations();
+        ArrayList<Invitation> arrayList = new ArrayList<Invitation>(invitations);
+        request.setAttribute("invitations", arrayList);
+        request.getRequestDispatcher("invitations.jsp").forward(request, response);
 
     }
 
     private void addFriend(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         Set<User> b = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFriends();
-        ArrayList<User> a = new ArrayList<User> (b);
+        ArrayList<User> a = new ArrayList<User>(b);
         Collections.sort(a);
         request.setAttribute("friends", a);
         request.getRequestDispatcher("friends.jsp").forward(request, response);

@@ -44,7 +44,7 @@
 
                     <a class="tab" id="tab1" href="/redirect.do?action=ADD_FRIEND" target="tabIframe2"> Friends </a>
                     <a class="tab" id="tab2" href="/redirect.do?action=SHOW_FAVOURITES" target="tabIframe2"> Places </a>
-                    <a class="tab" id="tab3" href="/redirect.do?action=SHOW_FAVOURITES" target="tabIframe2">
+                    <a class="tab" id="tab3" href="/redirect.do?action=SHOW_INVITATIONS" target="tabIframe2">
                         Invites </a>
 
                 </h2>
