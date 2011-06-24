@@ -36,6 +36,17 @@
     </servlet-mapping>
 
     <servlet>
+           <servlet-name>PlaceServlet</servlet-name>
+           <servlet-class>servlets.PlaceServlet</servlet-class>
+       </servlet>
+
+       <servlet-mapping>
+           <servlet-name>PlaceServlet</servlet-name>
+           <url-pattern>/place.do</url-pattern>
+       </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>RedirectServlet</servlet-name>
         <servlet-class>servlets.RedirectServlet</servlet-class>
     </servlet>

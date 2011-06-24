@@ -3,6 +3,7 @@ package servlets;
 import DAO.PlaceDAO;
 import enums.ActionName;
 import model.Place;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -31,8 +33,6 @@ public class PlaceServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
         switch (ActionName.valueOf(request.getParameter("action"))) {
 
             case CREATE_PLACE:
@@ -44,6 +44,7 @@ public class PlaceServlet extends HttpServlet {
             case UPDATE_LOCATION:
                  break;
             case PLACE_MARKERS:
+                System.out.println("Placeeeeeeeeeeeeeeeeee");
                 sendJson(request,response);
                 break;
 
@@ -53,17 +54,13 @@ public class PlaceServlet extends HttpServlet {
     }
 
     public String toJSONString(List<Place> places) {
-         JSONObject jsonPlaces = new JSONObject();
-
-         for (int i=0;i<places.size();i++){
-            JSONObject json = new JSONObject();
-            Place place = places.get(i);
-            json.put("name",place.getName());
-            json.put("address",place.getAddress());
-            json.put("latitude",place.getLocation().getLatitude());
-            jsonPlaces.put(String.valueOf(i),json);
+         JSONArray jsonPlaces = new JSONArray();
+         for(Place place: places){
+            jsonPlaces.put(place.getName());
+            jsonPlaces.put(place.getAddress());
+            jsonPlaces.put(place.getLocation().getLatitude());
+            jsonPlaces.put(place.getLocation().getLongitude());
         }
-
        return jsonPlaces.toString();
    }
 
@@ -74,25 +71,25 @@ public class PlaceServlet extends HttpServlet {
        String json = toJSONString(places);
 
 
-//       response.setContentType("text/json");
-//       PrintWriter writer = null;
-//       try
-//
-//       {
-//           writer = resp.getWritePr();
-//           writer.write(json);
-//       } catch (
-//               IOException e
-//               )
-//
-//       {
-//           e.printStackTrace();
-//       } finally
-//
-//       {
-//           writer.flush();
-//           writer.close();
-//       }
+       response.setContentType("text/json");
+       PrintWriter writer = null;
+       try
+
+       {
+           writer = response.getWriter();
+           writer.write(json);
+       } catch (
+               IOException e
+               )
+
+       {
+           e.printStackTrace();
+       } finally
+
+       {
+           writer.flush();
+           writer.close();
+       }
      }
 
     public static void main(String[] args) {
