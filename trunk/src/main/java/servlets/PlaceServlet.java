@@ -44,8 +44,7 @@ public class PlaceServlet extends HttpServlet {
             case UPDATE_LOCATION:
                  break;
             case PLACE_MARKERS:
-                System.out.println("Placeeeeeeeeeeeeeeeeee");
-                sendJson(request,response);
+               sendJson(request,response);
                 break;
 
         }
@@ -70,31 +69,23 @@ public class PlaceServlet extends HttpServlet {
 
        String json = toJSONString(places);
 
-
        response.setContentType("text/json");
        PrintWriter writer = null;
        try
-
        {
            writer = response.getWriter();
            writer.write(json);
        } catch (
                IOException e
                )
-
        {
            e.printStackTrace();
-       } finally
-
-       {
+       } finally{
            writer.flush();
            writer.close();
        }
      }
 
-    public static void main(String[] args) {
-        PlaceServlet p = new PlaceServlet();
-        p.sendJson(null,null);
-    }
+
 
 }
