@@ -38,7 +38,7 @@ function getPlaces() {
 
         var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(json[i + 2], json[i + 3]),
-                   // icon: '..\img\coffee.jpg',
+                    icon: '/img/coffee.png',
                     animation: google.maps.Animation.DROP
 
                 });
@@ -54,6 +54,24 @@ function getPlaces() {
         });*/
     }
 }
+
+function getFriends() {
+    var json = getJson("http://" + window.location.host + "/user.do?action=PLACE_FRIENDS");
+    for (var i = 0; i < json.length; i += 3) {
+
+        var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(json[i + 1], json[i + 2]),
+                    icon: '/img/friend.png',
+                    title: json[i],
+                    animation: google.maps.Animation.DROP
+
+        });
+        marker.setMap(map);
+
+
+    }
+}
+
 function addInfoWindow(marker, content) {
     var infoWindow = new google.maps.InfoWindow({
         content: content
@@ -107,6 +125,7 @@ function loadMap() {
         }
         marker = new google.maps.Marker({
                     position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+                    icon: '/img/me.png',
                     animation: google.maps.Animation.DROP
                 });
 
@@ -119,7 +138,9 @@ function loadMap() {
 
     });
 
-    getPlaces();
+
+     getPlaces();
+    getFriends();
 }
 
 
