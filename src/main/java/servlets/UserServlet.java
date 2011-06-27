@@ -66,6 +66,7 @@ public class UserServlet extends HttpServlet {
             case ADD_FAVOURITE:
                 addFavouritePlace(request,response);
                 response.sendRedirect("index.jsp");
+                break;
 
         }
 
