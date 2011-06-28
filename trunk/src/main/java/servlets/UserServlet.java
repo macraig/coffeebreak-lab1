@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -67,10 +68,17 @@ public class UserServlet extends HttpServlet {
                 addFavouritePlace(request,response);
                 response.sendRedirect("index.jsp");
                 break;
+            case DELETE_USER:
+                deleteUser(request,response);
+                break;
 
         }
 
+    }
 
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response){
+         User user = UserDAO.retrieveUserbyNickName(request.getParameter("name"));
+        user.setDeleted(true);
     }
 
     private void addFavouritePlace(HttpServletRequest request, HttpServletResponse response) {
@@ -118,15 +126,41 @@ public class UserServlet extends HttpServlet {
          User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
          User friend =  UserDAO.retrieveUserbyEmail(request.getParameter("email"));
 
+
+
         String message = user.getNickName()+" has sent you an invitation to COFFEEBREAK! Go to www.coffeebreakapp.com.ar to register";
 
 
         if(friend!=null){
 
-           user.getFriends().add(friend);
-          friend.getFriends().add(user);
-          dao.persist(user);
-         dao.persist(friend);
+            user.getFriends().add(friend);
+            friend.getFriends().add(user);
+            dao.persist(user);
+            dao.persist(friend);
+
+            /*TEST PARA VER QUE ESTA HACIENDO ADDFRIEND!!*/
+
+            System.out.println(user.getNickName()+" y "+friend.getNickName()+" ya son amigos!");
+
+            System.out.println("Los amigos de "+user.getNickName()+" son:");
+            Iterator<User> iterator = user.getFriends().iterator();
+
+                while (iterator.hasNext()) {
+                    User pepi = iterator.next();
+                     System.out.println(pepi.getNickName());
+
+                }
+             System.out.println("---------------");
+             System.out.println("Los amigos de "+friend.getNickName()+" son:");
+            iterator=friend.getFriends().iterator();
+                  while (iterator.hasNext()) {
+                    User pepi = iterator.next();
+                     System.out.println(pepi.getNickName());
+
+                }
+
+             /*END TEST!! BORRAAAAR*/
+
         } else{
            Emailer mailer = new Emailer();
            mailer.sendMail(request.getParameter("email"),"COFFEEBREAK invitation",message);
@@ -141,6 +175,7 @@ public String toJSONString(List<User> friends) {
             jsonFriends.put(friend.getLastLocation().getLatitude());
             jsonFriends.put(friend.getLastLocation().getLongitude());
         }
+        System.out.println(jsonFriends.toString());
        return jsonFriends.toString();
    }
 

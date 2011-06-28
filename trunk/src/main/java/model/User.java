@@ -2,6 +2,7 @@ package model;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -29,6 +30,8 @@ public class User implements Comparable{
     private Set<Place> favouritePlaces;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Invitation> invitations;
+    @Column(nullable = false)
+    private boolean deleted;
 
 
 
@@ -37,9 +40,9 @@ public class User implements Comparable{
 		this.password=pass;
         this.email=mail;
         setAdmin(false);
+        setDeleted(false);
         friends = new HashSet<User>();
         favouritePlaces = new HashSet<Place>();
-
 
 	}
 
@@ -86,7 +89,23 @@ public class User implements Comparable{
 	}
 
     public Set<User> getFriends() {
-        return friends;
+
+        Set<User> aux = new HashSet<User>();
+        Iterator<User> iterator = friends.iterator();
+        if(friends.isEmpty()){
+            return friends;
+        }  else{
+            while(iterator.hasNext()){
+                User friend = iterator.next();
+                if(!friend.isDeleted()){
+                   aux.add(friend);
+                }
+            }
+            friends=aux;
+
+            return friends;
+        }
+
     }
 
     public void setFriends(Set<User> friends) {
@@ -127,6 +146,14 @@ public class User implements Comparable{
 
     public void addInvitation (Invitation invitation) {
         invitations.add(invitation);
+    }
+
+    public void setDeleted(boolean deleted){
+        this.deleted=deleted;
+    }
+
+    public boolean isDeleted(){
+        return deleted;
     }
 
 
