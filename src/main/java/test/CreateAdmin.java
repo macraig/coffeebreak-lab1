@@ -14,16 +14,15 @@ import model.User;
  */
 public class CreateAdmin {
 
-   // static User admin = new User("admin","admin","mail@admin.com");
-   static User pepe = new User("africano","test","mail@test.com");
+    static User admin = new User("admin","admin","mail@admin.com");
+
 
     public static void main(String[] args) {
-        //admin.setAdmin(true);
-       // UserDAO.persist(admin);
-        Location l = new Location(0,0);
-        pepe.setLastLocation(l);
-        LocationDAO.persist(l);
-        UserDAO.persist(pepe);
+        admin.setAdmin(true);
+        UserDAO.persist(admin);
+
+
+
     }
 
 }

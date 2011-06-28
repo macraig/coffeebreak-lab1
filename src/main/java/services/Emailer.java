@@ -41,7 +41,7 @@ Properties props;
             message.setSubject(subject);
             message.setText(text);
            Transport t = session.getTransport("smtp");
-            t.connect("coffeebreakapp@gmail.com","coffeebreak4$");
+            t.connect("coffeebreakapp@gmail.com","coffeebreak");
             t.sendMessage(message,message.getAllRecipients());
             t.close();
         } catch (MessagingException e) {

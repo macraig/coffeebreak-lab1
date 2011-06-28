@@ -57,12 +57,19 @@ public class RedirectServlet extends HttpServlet {
 
 
     private void checkAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isAdmin()) {
-            request.getRequestDispatcher("admin.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        if (!UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isDeleted()) {
+
+            if (UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isAdmin()) {
+                request.getRequestDispatcher("admin.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+
+            }
+        }else{
+            request.getRequestDispatcher("error.html").forward(request,response);
         }
     }
+
 
     private void showFavourites(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Set<Place> placeSet = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFavouritePlaces();
