@@ -72,6 +72,7 @@ public class UserServlet extends HttpServlet {
                 deleteUser(request,response);
                 break;
             case LOCATE_FRIEND:
+                System.out.println("Entre al servlet chelen!! eeeeeeeeeeeeeeeee!!!");
                 locateFriend(request,response);
                 break;
 
@@ -80,8 +81,8 @@ public class UserServlet extends HttpServlet {
     }
 
     private void locateFriend(HttpServletRequest request, HttpServletResponse response){
-        User friend = UserDAO.retrieveUserbyNickName(request.getParameter("name"));
-        /*Guardar location, centrar mapa en esa location (Json?)*/
+       sendFriendLocationJson(request,response);
+
 
     }
 
@@ -187,6 +188,16 @@ public String toJSONString(List<User> friends) {
         }
         System.out.println(jsonFriends.toString());
        return jsonFriends.toString();
+    }
+
+     public String toJSONString(Location friendLocation) {
+         JSONArray jsonFriendLocation = new JSONArray();
+
+            jsonFriendLocation.put(friendLocation.getLatitude());
+            jsonFriendLocation.put(friendLocation.getLongitude());
+
+        System.out.println(jsonFriendLocation.toString());
+       return jsonFriendLocation.toString();
    }
 
      public void sendFriendsJson(HttpServletRequest request, HttpServletResponse response) {
@@ -194,6 +205,29 @@ public String toJSONString(List<User> friends) {
        List<User> friends = new ArrayList<User>(UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFriends());
 
        String json = toJSONString(friends);
+
+       response.setContentType("text/json");
+       PrintWriter writer = null;
+       try
+       {
+           writer = response.getWriter();
+           writer.write(json);
+       } catch (
+               IOException e
+               )
+       {
+           e.printStackTrace();
+       } finally{
+           writer.flush();
+           writer.close();
+       }
+     }
+
+    public void sendFriendLocationJson(HttpServletRequest request, HttpServletResponse response) {
+
+       Location friendLocation = UserDAO.retrieveUserbyNickName(request.getParameter("name")).getLastLocation();
+
+       String json = toJSONString(friendLocation);
 
        response.setContentType("text/json");
        PrintWriter writer = null;
