@@ -59,6 +59,7 @@ public class PlaceServlet extends HttpServlet {
             jsonPlaces.put(place.getLocation().getLongitude());
              jsonPlaces.put(place.getId());
         }
+
        return jsonPlaces.toString();
    }
 

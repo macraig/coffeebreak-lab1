@@ -15,7 +15,7 @@ import model.User;
 public class CreateUser {
 
 
-    static User pepe = new User("chelen","pololo","mail@chelen.com");
+    static User pepe = new User("africano","africa","mail@africano.com");
 
     public static void main(String[] args) {
 

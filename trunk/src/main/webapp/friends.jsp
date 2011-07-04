@@ -68,17 +68,22 @@
             <% for (int i = 0; i < ((List) request.getAttribute("friends")).size(); i++) { %>
 
             <div class="contact">
+                <form action="/user.do?action=LOCATE_FRIEND" method="post">
                 <p class="name"><%=((List<User>)request.getAttribute("friends")).get(i).getNickName().toUpperCase()%>
                     <img src="img/user-icon.png" alt="User Icon">
                 </p>
+
+                <input type="text" id="name" name="name" hidden="true" value=<%=((List<User>)request.getAttribute("friends")).get(i).getNickName()%>
 
                 <p class="location"> Last Known Location: <span class="adress">1485 Invented Avenue </span></p>
 
 
                 <div class="buttons">
-                  <input type="button" value="Locate"/>
+
+                  <input type="submit" value="Locate"/>
                   <input type="button" value="Send Invite"/>
                 </div>
+                    </form>
             </div>
 
             <% } %>

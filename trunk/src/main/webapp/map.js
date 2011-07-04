@@ -94,6 +94,10 @@ function addInfoWindow(marker, content) {
     });
 }
 
+function locateFriend(){
+    var json = getJson("http://"+window.location.host+"/user.do?action=LOCATE_FRIEND");
+    map.setCenter(json[0],json[1]);
+}
 
 function getJson(url) {
     XMLHttpRequestObject = new XMLHttpRequest();
@@ -134,7 +138,8 @@ function loadMap() {
         marker = new google.maps.Marker({
                     position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
                     icon: '/img/me.png',
-                    animation: google.maps.Animation.DROP
+                    animation: google.maps.Animation.DROP,
+                    draggable: true
                 });
 
         marker.setMap(map);
@@ -148,7 +153,7 @@ function loadMap() {
 
 
     getPlaces();
-    getFriends();
+     getFriends();
 }
 
 
