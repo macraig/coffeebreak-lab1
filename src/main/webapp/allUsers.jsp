@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <%@ page import="model.User" %>
 <%@ page import="DAO.UserDAO" %>
 <!DOCTYPE HTML>
@@ -5,10 +6,8 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" type="text/css" href="styleNew.css"/>
-    <script type="text/javascript" src="jquery/jquery-1.4.4.min.js"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
-    <script type="text/javascript" src="gmap3.js"></script>
-    <script type="text/javascript" src="map.js"></script>
+    <link rel="stylesheet" type="text/css" href="adminSpecial.css"/>
+    
 
 </head>
 
@@ -44,33 +43,57 @@
         <div class="line"></div>
         <!-- Dividing line -->
 
-        <div class="article" id="article1">
-            <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
-            <div class="tabArea">
-
-                <h2><a class="tab" href="/redirect.do?action=ADD_FRIEND" target="tabIframe2"> Friends </a>
-
-                    <a class="tab" href="/redirect.do?action=SHOW_FAVOURITES" target="tabIframe2"> Places </a></h2>
-
-            </div>
-
-
-            <div class="line"></div>
-
-
-            <iframe name="tabIframe2" src="/redirect.do?action=ADD_FRIEND" id="mainFrame" frameborder="0">
-                tu navegador no soporta iframes
-            </iframe>
-
-        </div>
 
         <div class="article" id="article2">
             <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
-            <h2><%=request.getRemoteUser().toUpperCase()%></h2>
+            <h2>All Users</h2>
 
             <div class="line"></div>
 
-            <div id="example"></div>
+           <TABLE>
+                <TR>
+                    <TH>Name</TH>
+                    <TH>Admin</TH>
+                    <TH>Status</TH>
+                    <TH>Action</TH>
+                    <TH>Go</TH>
+                </TR>
+                <% for (int i = 0; i < ((List)request.getAttribute("users")).size() ; i++) { %>
+                <TR>
+                
+                <form id="userForm" action="/user.do" method="post">
+                 
+                    <TD>
+                     
+                            <INPUT TYPE="TEXT" readonly="true" value="<%=((List<User>)request.getAttribute("users")).get(i).getNickName()%>">
+                  
+                    </TD>
+                    <TD>
+                        <INPUT TYPE="TEXT" readonly="true" value="<%=((List<User>)request.getAttribute("users")).get(i).isAdmin()%>">
+
+                    </TD>
+                                        <TD>
+                        <INPUT TYPE="TEXT" readonly="true" value="<%=((List<User>)request.getAttribute("users")).get(i).isDeleted()%>">
+
+                    </TD>
+                    <TD>
+                        <SELECT NAME="rowArray.<%=i%>.combo" SIZE="1">
+                            <OPTION VALUE=""></OPTION>
+                            <OPTION VALUE="1">Delete</OPTION>
+                            <OPTION VALUE="2">Make Admin</OPTION>
+                            <OPTION VALUE="3">UnDelete</OPTION>
+                        </SELECT>
+                    </TD>
+                    
+                                                            <TD>
+                        <INPUT TYPE="SUBMIT" value="Go">
+
+                    </TD>
+                 </form>
+                </TR>
+
+                <% } %>
+            </TABLE>
 
 
         </div>

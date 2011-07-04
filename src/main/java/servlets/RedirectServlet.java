@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -49,15 +50,25 @@ public class RedirectServlet extends HttpServlet {
             case ADD_FAVOURITE:
 //                addFavourite(request,response);
                 break;
+            case ALL_USERS:
+                allUsers(request,response);
+                break;
 
         }
 
 
     }
 
+    private void allUsers(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        List<User> userList = UserDAO.retrieveUserList();
+        request.setAttribute("users", userList);
+        request.getRequestDispatcher("allUsers.jsp").forward(request, response);
+
+    }
+
 
     private void checkAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        if (!UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isDeleted()) {
+        if (!(UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isDeleted())) {
 
             if (UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isAdmin()) {
                 request.getRequestDispatcher("admin.jsp").forward(request, response);

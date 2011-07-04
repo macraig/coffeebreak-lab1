@@ -13,7 +13,7 @@ public class PlaceDAO extends BaseDAO {
         Place result = null;
         Session session = HibernateUtil.getSession();
         String query = "from Place where name ='" + name + "' ";
-        result = (Place) session.createQuery(query).list();
+        result = (Place) session.createQuery(query).uniqueResult();
         return result;
     }
 
@@ -26,7 +26,7 @@ public class PlaceDAO extends BaseDAO {
         Place result = null;
         Session session = HibernateUtil.getSession();
         String query = "from Place where placeId ='" + id + "' ";
-        result = (Place) session.createQuery(query).list();
+        result = (Place) session.createQuery(query).uniqueResult();
         return result;
     }
 

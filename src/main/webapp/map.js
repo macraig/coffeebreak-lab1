@@ -27,8 +27,9 @@ function createContent(name, address, id) {
             '<h1 id="windowName">' + name + '  </h1>' +
             '<div id="bodyContent">' +
             'Address : ' + address +
-            '<p> <a href="/user.do?action=ADD_FAVOURITE&place_id="'+id+'> ' + 'Add to Favourites</p>' +
-            '</div>' ;
+//            '<p> <a href=\"/user.do?action=ADD_FAVOURITE&place_id='+id+'\"> ' + 'Add to Favourites</p>' +
+            '<p> <a HREF="javascript:void(0)" onclick="add_favourite('+id+')">Add' +
+            '</div>';
     return contentString;
 }
 
@@ -43,15 +44,15 @@ function getPlaces() {
 
                 });
         marker.setMap(map);
-        addInfoWindow(marker, createContent(json[i], json[i + 1],json[i+4]))
-       // var infoMarker = new InfoMarker().startupInfoMarker(marker, infowindow);
+        addInfoWindow(marker, createContent(json[i], json[i + 1], json[i + 4]))
+        // var infoMarker = new InfoMarker().startupInfoMarker(marker, infowindow);
 
-       // markersMap.put(infoMarker.marker.getPosition(), infoMarker);
+        // markersMap.put(infoMarker.marker.getPosition(), infoMarker);
 
         /*google.maps.event.addListener(infoMarker.marker, 'click', function() {
-           var infoMarkerSelected = markersMap.get(infoMarker.marker.getPosition());
-            infoMarkerSelected.infoWindow.open(map, infoMarker.marker);
-        });*/
+         var infoMarkerSelected = markersMap.get(infoMarker.marker.getPosition());
+         infoMarkerSelected.infoWindow.open(map, infoMarker.marker);
+         });*/
     }
 }
 
@@ -65,20 +66,27 @@ function getFriends() {
                     title: json[i],
                     animation: google.maps.Animation.DROP
 
-        });
+                });
         marker.setMap(map);
 
 
     }
 }
 
+function add_favourite(id) {
+    $.ajax({
+                url: "/user.do?action=ADD_FAVOURITE&place_id="+ id
+            });
+
+}
+
 function addInfoWindow(marker, content) {
     var infoWindow = new google.maps.InfoWindow({
-        content: content
-    });
+                content: content
+            });
 
     google.maps.event.addListener(marker, 'click', function () {
-        if(lastInfoWindow){
+        if (lastInfoWindow) {
             lastInfoWindow.close()
         }
         infoWindow.open(map, marker);
@@ -139,7 +147,7 @@ function loadMap() {
     });
 
 
-     getPlaces();
+    getPlaces();
     getFriends();
 }
 

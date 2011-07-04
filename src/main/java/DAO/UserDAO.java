@@ -26,5 +26,9 @@ public class UserDAO extends BaseDAO {
         return result;
     }
 
+    public static List<User> retrieveUserList() {
+       return HibernateUtil.getSession().createCriteria(User.class).list();
+
+     }
 
 }

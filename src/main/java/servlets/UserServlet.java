@@ -71,8 +71,17 @@ public class UserServlet extends HttpServlet {
             case DELETE_USER:
                 deleteUser(request,response);
                 break;
+            case LOCATE_FRIEND:
+                locateFriend(request,response);
+                break;
 
         }
+
+    }
+
+    private void locateFriend(HttpServletRequest request, HttpServletResponse response){
+        User friend = UserDAO.retrieveUserbyNickName(request.getParameter("name"));
+        /*Guardar location, centrar mapa en esa location (Json?)*/
 
     }
 
@@ -85,10 +94,11 @@ public class UserServlet extends HttpServlet {
         System.out.println("EL VALOR DEL STRINGGGGGGGGG");
         System.out.println(request.getParameter("place_id"));
 
-        Place place = PlaceDAO.retrievePlacesbyId(Long.valueOf(request.getParameter("place_id")));
+        Place place = PlaceDAO.retrievePlacesbyId((Long.valueOf(request.getParameter("place_id"))));
         User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
         if(!user.getFavouritePlaces().contains(place)){
-                user.getFavouritePlaces().add(place);
+            user.getFavouritePlaces().add(place);
+            UserDAO.persist(user);
         }
 
 
