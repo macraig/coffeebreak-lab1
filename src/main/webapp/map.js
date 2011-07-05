@@ -28,7 +28,8 @@ function createContent(name, address, id) {
             '<div id="bodyContent">' +
             'Address : ' + address +
 //            '<p> <a href=\"/user.do?action=ADD_FAVOURITE&place_id='+id+'\"> ' + 'Add to Favourites</p>' +
-            '<p> <a HREF="javascript:void(0)" onclick="add_favourite('+id+')">Add' +
+            '<p> <a HREF="javascript:void(0)" onclick="add_favourite(' + id + ')">Add</p>' +
+            '<p> <a HREF="javascript:void(0)" onclick="create_invite(' + id + ')">Create Invite</p>' +
             '</div>';
     return contentString;
 }
@@ -44,7 +45,7 @@ function getPlaces() {
 
                 });
         marker.setMap(map);
-        addInfoWindow(marker, createContent(json[i], json[i + 1], json[i + 4]))
+        addInfoWindow(marker, createContent(json[i], json[i + 1], json[i + 4]));
         // var infoMarker = new InfoMarker().startupInfoMarker(marker, infowindow);
 
         // markersMap.put(infoMarker.marker.getPosition(), infoMarker);
@@ -75,10 +76,13 @@ function getFriends() {
 
 function add_favourite(id) {
     $.ajax({
-                url: "/user.do?action=ADD_FAVOURITE&place_id="+ id
+                url: "/user.do?action=ADD_FAVOURITE&place_id=" + id
             });
 
+
 }
+
+
 
 function addInfoWindow(marker, content) {
     var infoWindow = new google.maps.InfoWindow({
@@ -94,10 +98,10 @@ function addInfoWindow(marker, content) {
     });
 }
 
-function locateFriend(){
-    var json = getJson("http://"+window.location.host+"/user.do?action=LOCATE_FRIEND");
-    map.setCenter(json[0],json[1]);
-}
+/*function locateFriend(){
+ var json = getJson("http://"+window.location.host+"/user.do?action=LOCATE_FRIEND");
+ map.setCenter(json[0],json[1]);
+ }   */
 
 function getJson(url) {
     XMLHttpRequestObject = new XMLHttpRequest();
@@ -153,7 +157,7 @@ function loadMap() {
 
 
     getPlaces();
-     getFriends();
+    getFriends();
 }
 
 

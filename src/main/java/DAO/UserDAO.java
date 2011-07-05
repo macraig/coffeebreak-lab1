@@ -4,13 +4,13 @@ import hibernate.HibernateUtil;
 import model.User;
 import org.hibernate.Session;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class UserDAO extends BaseDAO {
 
     public static User retrieveUserbyNickName(String aux) {
+        HibernateUtil.closeSession();
         User result = null;
         Session session = HibernateUtil.getSession();
         String query = "from User where nickName ='" + aux + "' ";
@@ -27,7 +27,11 @@ public class UserDAO extends BaseDAO {
     }
 
     public static List<User> retrieveUserList() {
-       return HibernateUtil.getSession().createCriteria(User.class).list();
+        String query ="from User";
+        User result = null;
+        Session session = HibernateUtil.getSession();
+        return session.createQuery(query).list();
+
 
      }
 

@@ -4,8 +4,8 @@ import hibernate.HibernateUtil;
 import model.Place;
 import org.hibernate.Session;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class PlaceDAO extends BaseDAO {
 
@@ -18,8 +18,8 @@ public class PlaceDAO extends BaseDAO {
     }
 
      public static List<Place> retrievePlaceList() {
-       return HibernateUtil.getSession().createCriteria(Place.class).list();
-
+       List<Place> places = HibernateUtil.getSession().createCriteria(Place.class).list();
+       return places;
      }
 
     public static Place retrievePlacesbyId(long id) {

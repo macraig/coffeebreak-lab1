@@ -84,8 +84,19 @@ public class RedirectServlet extends HttpServlet {
 
     private void showFavourites(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Set<Place> placeSet = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFavouritePlaces();
+
+        for(Place place:placeSet){
+            System.out.println("PLACES DEL SET:");
+           System.out.println(place.getName());
+        }
+
         ArrayList<Place> arrayList = new ArrayList<Place>(placeSet);
         request.setAttribute("places", arrayList);
+
+        System.out.println("PLACES DE LIST:");
+        for (Place p:arrayList){
+            System.out.println(p.getName());
+        }
         request.getRequestDispatcher("places.jsp").forward(request, response);
 
     }
