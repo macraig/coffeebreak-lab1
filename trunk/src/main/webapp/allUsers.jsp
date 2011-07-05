@@ -7,13 +7,13 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" type="text/css" href="styleNew.css"/>
     <link rel="stylesheet" type="text/css" href="adminSpecial.css"/>
-    
+
 
 </head>
 
 <body onload="loadMap()">
-<% if (!UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isAdmin()){
-            request.getRequestDispatcher("index.jsp").forward(request,response);
+<% if (!UserDAO.retrieveUserbyNickName(request.getRemoteUser()).isAdmin()) {
+    request.getRequestDispatcher("index.jsp").forward(request, response);
 } %>
 
 <div class="section" id="page" style="height:90%"> <!-- Defining the #page section with the section tag -->
@@ -50,7 +50,7 @@
 
             <div class="line"></div>
 
-           <TABLE>
+            <TABLE>
                 <TR>
                     <TH>Name</TH>
                     <TH>Admin</TH>
@@ -58,38 +58,41 @@
                     <TH>Action</TH>
                     <TH>Go</TH>
                 </TR>
-                <% for (int i = 0; i < ((List)request.getAttribute("users")).size() ; i++) { %>
+                <% for (int i = 0; i < ((List) request.getAttribute("users")).size(); i++) { %>
                 <TR>
-                
-                <form id="userForm" action="/user.do" method="post">
-                 
-                    <TD>
-                     
-                            <INPUT TYPE="TEXT" readonly="true" value="<%=((List<User>)request.getAttribute("users")).get(i).getNickName()%>">
-                  
-                    </TD>
-                    <TD>
-                        <INPUT TYPE="TEXT" readonly="true" value="<%=((List<User>)request.getAttribute("users")).get(i).isAdmin()%>">
 
-                    </TD>
-                                        <TD>
-                        <INPUT TYPE="TEXT" readonly="true" value="<%=((List<User>)request.getAttribute("users")).get(i).isDeleted()%>">
+                    <form id="userForm" action="/user.do" method="post">
 
-                    </TD>
-                    <TD>
-                        <SELECT NAME="rowArray.<%=i%>.combo" SIZE="1">
-                            <OPTION VALUE=""></OPTION>
-                            <OPTION VALUE="1">Delete</OPTION>
-                            <OPTION VALUE="2">Make Admin</OPTION>
-                            <OPTION VALUE="3">UnDelete</OPTION>
-                        </SELECT>
-                    </TD>
-                    
-                                                            <TD>
-                        <INPUT TYPE="SUBMIT" value="Go">
+                        <TD>
 
-                    </TD>
-                 </form>
+                            <INPUT TYPE="TEXT" readonly="true" name="name"
+                                   value="<%=((List<User>)request.getAttribute("users")).get(i).getNickName()%>">
+
+                        </TD>
+                        <TD>
+                            <INPUT TYPE="TEXT" readonly="true"
+                                   value="<%=((List<User>)request.getAttribute("users")).get(i).isAdmin()%>">
+
+                        </TD>
+                        <TD>
+                            <INPUT TYPE="TEXT" readonly="true"
+                                   value="<%=((List<User>)request.getAttribute("users")).get(i).isDeleted()%>">
+
+                        </TD>
+                        <TD>
+                            <SELECT NAME="action" SIZE="1">
+                                <OPTION VALUE=""></OPTION>
+                                <OPTION VALUE="DELETE_USER">Delete</OPTION>
+                                <OPTION VALUE="MAKE_ADMIN">Make Admin</OPTION>
+                                <OPTION VALUE="RESTORE_USER">UnDelete</OPTION>
+                            </SELECT>
+                        </TD>
+
+                        <TD>
+                            <INPUT TYPE="SUBMIT" value="Go">
+
+                        </TD>
+                    </form>
                 </TR>
 
                 <% } %>

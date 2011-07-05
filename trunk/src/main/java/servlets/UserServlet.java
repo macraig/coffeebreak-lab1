@@ -43,52 +43,76 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-
         switch (ActionName.valueOf(request.getParameter("action"))) {
 
             case CREATE_USER:
                 createUser(request, response);
-                 response.sendRedirect("index.jsp");
+                response.sendRedirect("index.jsp");
                 break;
             case MODIFY_USER:
                 modifyUser(request, response);
-                 response.sendRedirect("index.jsp");
+                response.sendRedirect("index.jsp");
                 break;
             case ADD_FRIEND:
-                addFriend(request,response);
+                addFriend(request, response);
                 response.sendRedirect("/redirect.do?action=ADD_FRIEND");
                 break;
             case UPDATE_LOCATION:
                 updateLocation(request, response);
                 break;
             case PLACE_FRIENDS:
-                sendFriendsJson(request,response);
+                sendFriendsJson(request, response);
                 break;
             case ADD_FAVOURITE:
-                addFavouritePlace(request,response);
+                addFavouritePlace(request, response);
                 response.sendRedirect("index.jsp");
                 break;
             case DELETE_USER:
-                deleteUser(request,response);
+                deleteUser(request, response);
+                request.setAttribute("users", UserDAO.retrieveUserList());
+                request.getRequestDispatcher("allUsers.jsp").forward(request, response);
+                break;
+            case RESTORE_USER:
+                restoreUser(request, response);
+                request.setAttribute("users", UserDAO.retrieveUserList());
+                request.getRequestDispatcher("allUsers.jsp").forward(request, response);
                 break;
             case LOCATE_FRIEND:
-                System.out.println("Entre al servlet chelen!! eeeeeeeeeeeeeeeee!!!");
-                locateFriend(request,response);
+                locateFriend(request, response);
                 break;
+            case MAKE_ADMIN:
+                makeAdmin(request, response);
+                request.setAttribute("users", UserDAO.retrieveUserList());
+                request.getRequestDispatcher("allUsers.jsp").forward(request, response);
+                break;
+
 
         }
 
     }
 
-    private void locateFriend(HttpServletRequest request, HttpServletResponse response){
-       sendFriendLocationJson(request,response);
+    private void makeAdmin(HttpServletRequest request, HttpServletResponse response) {
+        User user = UserDAO.retrieveUserbyNickName(request.getParameter("name"));
+        user.setAdmin(true);
+        UserDAO.persist(user);
+    }
+
+    private void restoreUser(HttpServletRequest request, HttpServletResponse response) {
+        User user = UserDAO.retrieveUserbyNickName(request.getParameter("name"));
+        user.setDeleted(false);
+        UserDAO.persist(user);
+    }
+
+    private void locateFriend(HttpServletRequest request, HttpServletResponse response) {
+        sendFriendLocationJson(request, response);
 
 
     }
 
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response){
-         User user = UserDAO.retrieveUserbyNickName(request.getParameter("name"));
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) {
+        User user = UserDAO.retrieveUserbyNickName(request.getParameter("name"));
         user.setDeleted(true);
+        UserDAO.persist(user);
     }
 
     private void addFavouritePlace(HttpServletRequest request, HttpServletResponse response) {
@@ -97,18 +121,17 @@ public class UserServlet extends HttpServlet {
 
         Place place = PlaceDAO.retrievePlacesbyId((Long.valueOf(request.getParameter("place_id"))));
         User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
-        if(!user.getFavouritePlaces().contains(place)){
+        if (!user.getFavouritePlaces().contains(place)) {
             user.getFavouritePlaces().add(place);
             UserDAO.persist(user);
         }
-
 
 
     }
 
     private void updateLocation(HttpServletRequest request, HttpServletResponse response) {
         User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
-        Location location = new Location(Double.parseDouble(request.getParameter("latitude")),Double.parseDouble(request.getParameter("longitude")));
+        Location location = new Location(Double.parseDouble(request.getParameter("latitude")), Double.parseDouble(request.getParameter("longitude")));
         LocationDAO.persist(location);
         user.setLastLocation(location);
         UserDAO.persist(user);
@@ -128,21 +151,20 @@ public class UserServlet extends HttpServlet {
         User user = new User(name, pass, request.getParameter("mail"));
         dao.persist(user);
         Emailer mailer = new Emailer();
-        String message = "Welcome "+name+" ! The CoffeeBreak staff welcomes you to CoffeeBreak! Username: "+name+" Password: "+pass;
-        mailer.sendMail(request.getParameter("mail"),"Welcome to CoffeeBreak",message);
+        String message = "Welcome " + name + " ! The CoffeeBreak staff welcomes you to CoffeeBreak! Username: " + name + " Password: " + pass;
+        mailer.sendMail(request.getParameter("mail"), "Welcome to CoffeeBreak", message);
 
     }
 
-    private void addFriend(HttpServletRequest request, HttpServletResponse response){
-         User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
-         User friend =  UserDAO.retrieveUserbyEmail(request.getParameter("email"));
+    private void addFriend(HttpServletRequest request, HttpServletResponse response) {
+        User user = UserDAO.retrieveUserbyNickName(request.getRemoteUser());
+        User friend = UserDAO.retrieveUserbyEmail(request.getParameter("email"));
 
 
+        String message = user.getNickName() + " has sent you an invitation to COFFEEBREAK! Go to www.coffeebreakapp.com.ar to register";
 
-        String message = user.getNickName()+" has sent you an invitation to COFFEEBREAK! Go to www.coffeebreakapp.com.ar to register";
 
-
-        if(friend!=null){
+        if (friend != null) {
 
             user.getFriends().add(friend);
             friend.getFriends().add(user);
@@ -151,101 +173,96 @@ public class UserServlet extends HttpServlet {
 
             /*TEST PARA VER QUE ESTA HACIENDO ADDFRIEND!!*/
 
-            System.out.println(user.getNickName()+" y "+friend.getNickName()+" ya son amigos!");
+            System.out.println(user.getNickName() + " y " + friend.getNickName() + " ya son amigos!");
 
-            System.out.println("Los amigos de "+user.getNickName()+" son:");
+            System.out.println("Los amigos de " + user.getNickName() + " son:");
             Iterator<User> iterator = user.getFriends().iterator();
 
-                while (iterator.hasNext()) {
-                    User pepi = iterator.next();
-                     System.out.println(pepi.getNickName());
+            while (iterator.hasNext()) {
+                User pepi = iterator.next();
+                System.out.println(pepi.getNickName());
 
-                }
-             System.out.println("---------------");
-             System.out.println("Los amigos de "+friend.getNickName()+" son:");
-            iterator=friend.getFriends().iterator();
-                  while (iterator.hasNext()) {
-                    User pepi = iterator.next();
-                     System.out.println(pepi.getNickName());
+            }
+            System.out.println("---------------");
+            System.out.println("Los amigos de " + friend.getNickName() + " son:");
+            iterator = friend.getFriends().iterator();
+            while (iterator.hasNext()) {
+                User pepi = iterator.next();
+                System.out.println(pepi.getNickName());
 
-                }
+            }
 
-             /*END TEST!! BORRAAAAR*/
+            /*END TEST!! BORRAAAAR*/
 
-        } else{
-           Emailer mailer = new Emailer();
-           mailer.sendMail(request.getParameter("email"),"COFFEEBREAK invitation",message);
+        } else {
+            Emailer mailer = new Emailer();
+            mailer.sendMail(request.getParameter("email"), "COFFEEBREAK invitation", message);
 
         }
     }
 
-public String toJSONString(List<User> friends) {
-         JSONArray jsonFriends = new JSONArray();
-         for(User friend: friends){
+    public String toJSONString(List<User> friends) {
+        JSONArray jsonFriends = new JSONArray();
+        for (User friend : friends) {
             jsonFriends.put(friend.getNickName());
             jsonFriends.put(friend.getLastLocation().getLatitude());
             jsonFriends.put(friend.getLastLocation().getLongitude());
         }
         System.out.println(jsonFriends.toString());
-       return jsonFriends.toString();
+        return jsonFriends.toString();
     }
 
-     public String toJSONString(Location friendLocation) {
-         JSONArray jsonFriendLocation = new JSONArray();
+    public String toJSONString(Location friendLocation) {
+        JSONArray jsonFriendLocation = new JSONArray();
 
-            jsonFriendLocation.put(friendLocation.getLatitude());
-            jsonFriendLocation.put(friendLocation.getLongitude());
+        jsonFriendLocation.put(friendLocation.getLatitude());
+        jsonFriendLocation.put(friendLocation.getLongitude());
 
         System.out.println(jsonFriendLocation.toString());
-       return jsonFriendLocation.toString();
-   }
+        return jsonFriendLocation.toString();
+    }
 
-     public void sendFriendsJson(HttpServletRequest request, HttpServletResponse response) {
+    public void sendFriendsJson(HttpServletRequest request, HttpServletResponse response) {
 
-       List<User> friends = new ArrayList<User>(UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFriends());
+        List<User> friends = new ArrayList<User>(UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFriends());
 
-       String json = toJSONString(friends);
+        String json = toJSONString(friends);
 
-       response.setContentType("text/json");
-       PrintWriter writer = null;
-       try
-       {
-           writer = response.getWriter();
-           writer.write(json);
-       } catch (
-               IOException e
-               )
-       {
-           e.printStackTrace();
-       } finally{
-           writer.flush();
-           writer.close();
-       }
-     }
+        response.setContentType("text/json");
+        PrintWriter writer = null;
+        try {
+            writer = response.getWriter();
+            writer.write(json);
+        } catch (
+                IOException e
+                ) {
+            e.printStackTrace();
+        } finally {
+            writer.flush();
+            writer.close();
+        }
+    }
 
     public void sendFriendLocationJson(HttpServletRequest request, HttpServletResponse response) {
 
-       Location friendLocation = UserDAO.retrieveUserbyNickName(request.getParameter("name")).getLastLocation();
+        Location friendLocation = UserDAO.retrieveUserbyNickName(request.getParameter("name")).getLastLocation();
 
-       String json = toJSONString(friendLocation);
+        String json = toJSONString(friendLocation);
 
-       response.setContentType("text/json");
-       PrintWriter writer = null;
-       try
-       {
-           writer = response.getWriter();
-           writer.write(json);
-       } catch (
-               IOException e
-               )
-       {
-           e.printStackTrace();
-       } finally{
-           writer.flush();
-           writer.close();
-       }
-     }
-
+        response.setContentType("text/json");
+        PrintWriter writer = null;
+        try {
+            writer = response.getWriter();
+            writer.write(json);
+        } catch (
+                IOException e
+                ) {
+            e.printStackTrace();
+        } finally {
+            writer.flush();
+            writer.close();
+        }
+    }
 
 
 }
