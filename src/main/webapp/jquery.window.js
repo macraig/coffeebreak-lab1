@@ -7,10 +7,10 @@
  * Last Revision: 2011-02-10
  *
  * The window status is defined as: cascade(default), minimized, maxmized
- *
+ * 
  * The code style is reference from javascript Singleton design pattern. Please see:
  * http://fstoke.me/blog/?page_id=1610
- *
+ * 
  * Join the facebook fans page to discuss there and get latest information.
  * http://www.facebook.com/pages/jQuery-Window-Plugin/116769961667138
  *
@@ -55,7 +55,7 @@
 		}
 	];
  */
-
+	
 // Get window instance via jQuery call
 // create window on html body
 $.window = function(options) {
@@ -80,7 +80,7 @@ $.Window = (function()  {
 	var MINIMIZED_LONG = 120;
 	var RESIZE_EVENT_DELAY = 200;
 	var ua = navigator.userAgent.toLowerCase(); // browser useragent
-
+	
 	// static variables
 	var windowIndex = 0;            // index to create window instance id
 	var lastSelectedWindow = null;  // to remember last selected window instance
@@ -92,7 +92,7 @@ $.Window = (function()  {
 		long: MINIMIZED_LONG,
 		storage: []                 // a array to store minimized window instance
 	};
-
+	
 	// the static setting
 	var setting = {
 		dock: 'left',                   // [string:"left"] the direction of minimized window dock at. the available values are [left, right, top, bottom]
@@ -102,7 +102,7 @@ $.Window = (function()  {
 		handleScrollbar: false,          // [boolean:true] to handle browser scrollbar when window status changed(maximize, minimize, cascade)
 		showLog: false                  // [boolean:false] to decide show log in firebug, IE8, chrome console
 	};
-
+	
 	// select the current clicked window instance, concurrently, unselect last selected window instance
 	function selectWindow(parent, wnd) {
 		if( parent == null ) {
@@ -123,7 +123,7 @@ $.Window = (function()  {
 			parent.get(0)._lastSelectedWindow = wnd;
 		}
 	}
-
+	
 	// get the window instance
 	function getWindow(windowId) {
 		for( var i=0, len=windowStorage.length; i<len; i++ ) {
@@ -133,12 +133,12 @@ $.Window = (function()  {
 			}
 		}
 	}
-
+	
 	// push the window instance into storage
 	function pushWindow(wnd) {
 		windowStorage.push(wnd);
 	}
-
+	
 	// pop the window instance from storage out
 	function popWindow(wnd) {
 		for( var i=0, len=windowStorage.length; i<len; i++ ) {
@@ -149,7 +149,7 @@ $.Window = (function()  {
 			}
 		}
 	}
-
+	
 	// push the window instance into minimized storage
 	function pushMinWindow(parent, wnd) {
 		if( parent != null ) {
@@ -158,7 +158,7 @@ $.Window = (function()  {
 			minWinData.storage.push(wnd);
 		}
 	}
-
+	
 	// pop the window instance from minimized storage out
 	function popMinWindow(parent, wnd) {
 		var doAdjust = false;
@@ -175,13 +175,13 @@ $.Window = (function()  {
 			}
 		}
 	}
-
+	
 	// get the minimized window count by parent elemen
 	function getMinWindowLength(parent) {
 		var storage = (parent != null)? parent.get(0)._minWinData.storage:minWinData.storage;
 		return storage.length;
 	}
-
+	
 	function checkMinWindowSize(parent, bPush) {
 		var bAdjust = false;
 		var rect = null;
@@ -192,7 +192,7 @@ $.Window = (function()  {
 		} else {
 			rect = getBrowserScreenWH();
 		}
-
+		
 		var count = getMinWindowLength(parent);
 		if( setting.dock == 'left' || setting.dock == 'right' ) {
 			if( bPush ) {
@@ -212,7 +212,7 @@ $.Window = (function()  {
 				if( ((count+1) * mwdata.long) > rect.width ) {
 					mwdata.long = rect.width/(count+1);
 					adjustAllMinWindows(parent);
-				}
+				}				
 			} else if( mwdata.long < setting.minWinLong ) {
 				if( (count * setting.minWinLong) < rect.width ) {
 					mwdata.long = setting.minWinLong;
@@ -222,14 +222,14 @@ $.Window = (function()  {
 			}
 		}
 	}
-
+	
 	function adjustAllMinWindows(parent) {
 		var storage = (parent != null)? parent.get(0)._minWinData.storage:minWinData.storage;
 		for( var i=0; i<storage.length; i++ ) {
 			storage[i]._adjustMinimizedPos(false);
 		}
 	}
-
+	
 	function getBrowserScreenWH() {
 		var width = document.documentElement.clientWidth;
 		var height = document.documentElement.clientHeight;
@@ -253,7 +253,7 @@ $.Window = (function()  {
 		}
 		return {left:scrOfX, top:scrOfY};
 	}
-
+	
 	function getCssStyleByDock(parent, miniIndex) {
 		var targetCss = {};
 		var screenWH = getBrowserScreenWH();
@@ -296,7 +296,7 @@ $.Window = (function()  {
 					targetCss.top = cpos.top + bTop;
 					targetCss.left += cpos.left + bLeft;
 				} else {
-					targetCss.top = 0;
+					targetCss.top = 0;	
 				}
 			} else if( setting.dock == 'bottom' ) {
 				if( parent != null ) {
@@ -310,13 +310,13 @@ $.Window = (function()  {
 		//log( 'getCssStyleByDock: '+ screenWH.height );
 		return targetCss;
 	}
-
+	
 	function log(msg) {
 		if(setting.showLog && window.console != null) {
 			console.log(msg);
 		}
 	}
-
+	
 	function constructor(caller, options) {
 		// instance private methods
 		// flag & variables
@@ -335,13 +335,13 @@ $.Window = (function()  {
 		var funcBarWidth = 0;             // the width of header function bar
 		var miniStackIndex = -1;          // the index of window in minimized stack
 		var animating = false;            // a boolean flag to indicate the window is doing animate
-
+		
 		// element
 		var container = null;             // whole window container element
 		var header = null;                // the header panel of window. it includes title text and buttons
 		var frame = null;                 // the content panel of window. it could be a iframe or a div element, depending on which way you create it
-		var footer = null;                // the footer panel of window. currently, it got nothing, but maybe a status bar or something will be added in the future
-
+		var footer = null;                // the footer panel of window. currently, it got nothing, but maybe a status bar or something will be added in the future 
+		
 		// the instance options
 		var options = $.extend({
 			title: "",                    // [string:""] the title text of window
@@ -392,7 +392,7 @@ $.Window = (function()  {
 			iframeRedirectCheckMsg: null, // [string:null] if null means no check, or pass a string to show warning message while iframe is going to redirect
 			createRandomOffset: {x:0, y:0} // [json object:{x:0, y:0}] random the new created window position, it only works when options x,y value both are -1
 		}, options);
-
+		
 		function initialize(instance) {
 			_this = instance;
 			// build html
@@ -400,12 +400,12 @@ $.Window = (function()  {
 			var cornerClass = options.showRoundCorner? "ui-corner-all ":"";
 			realCaller.append("<div id='"+windowId+"' class='window_panel "+cornerClass+options.containerClass+"'></div>");
 			container = realCaller.children("div#"+windowId);
-
+	
 			// onOpen call back
 			if( $.isFunction(options.onOpen) ) {
 				options.onOpen(_this);
 			}
-
+			
 			wh.w = options.width;
 			wh.h = options.height;
 			container.width(options.width);
@@ -417,7 +417,7 @@ $.Window = (function()  {
 					paddingBottom: 1
 				});
 			}
-
+	
 			if( options.x >= 0 || options.y >= 0 ) {
 				var scrollPos = getBrowserScrollXY();
 				// set position x
@@ -432,7 +432,7 @@ $.Window = (function()  {
 				} else { // put on center
 					alignHorizontalCenter();
 				}
-
+	
 				// set position y
 				if( options.y >= 0 ) {
 					var pTop = 0;
@@ -454,7 +454,7 @@ $.Window = (function()  {
 				left: currPos.left,
 				top: currPos.top
 			});
-
+	
 			// build header html
 			cornerClass = options.showRoundCorner? "ui-corner-top ":"";
 			var headerHtml = "<div class='window_header window_header_normal ui-widget-header "+cornerClass+"no-resizable "+options.headerClass+"'>"+
@@ -463,7 +463,7 @@ $.Window = (function()  {
 				"</div>";
 			container.append(headerHtml);
 			header = container.children("div.window_header");
-
+			
 			// bind double click event with doing maximize action
 			if( options.maximizable ) {
 				header.dblclick(function() {
@@ -474,7 +474,7 @@ $.Window = (function()  {
 					}
 				});
 			}
-
+			
 			headerFuncPanel = header.children("div.window_function_bar");
 			// add close button
 			if( options.closable ) {
@@ -484,7 +484,7 @@ $.Window = (function()  {
 				});
 				funcBarWidth += ICON_OFFSET;
 			}
-
+	
 			// add maximize button
 			if( options.maximizable ) {
 				headerFuncPanel.append( "<div title='maximize window' class='maximizeImg window_icon_button no-draggable'></div>" );
@@ -497,7 +497,7 @@ $.Window = (function()  {
 				});
 				funcBarWidth += ICON_OFFSET;
 			}
-
+	
 			// add minimize button
 			if( options.minimizable ) {
 				headerFuncPanel.append( "<div title='minimize window' class='minimizeImg window_icon_button no-draggable'></div>" );
@@ -506,19 +506,19 @@ $.Window = (function()  {
 				});
 				funcBarWidth += ICON_OFFSET;
 			}
-
+		
 			// add customized buttons
 			addCustomizedButtns(headerFuncPanel);
-
-			// make buttons don't pass dblclick event to header panel
+			
+			// make buttons don't pass dblclick event to header panel 
 			$(".window_icon_button").dblclick(function() {
 				return false;
 			});
-
+	
 			// set text & function bar width
 			adjustHeaderTextPanelWidth();
 			headerFuncPanel.width( funcBarWidth );
-
+	
 			// build iframe html
 			var frameHeight = getFrameHeight(wh.h);
 			if( options.url != null && $.trim(options.url) != "" ) {
@@ -527,7 +527,7 @@ $.Window = (function()  {
 					log("start connecting iframe: "+options.url);
 					options.onIframeStart(_this, options.url);
 				}
-
+	
 				// add iframe redirect checking
 				if( options.iframeRedirectCheckMsg ) {
 					redirectCheck = true;
@@ -538,21 +538,21 @@ $.Window = (function()  {
 						}
 					}
 				}
-
+	
 				// show loading image
 				container.append("<div class='bgloader'><div class='frame_loading'><img src='../../../sources/img/loading.gif'> Iniciando aplicaci&oacute;n...</div></div>");
 				var loading = container.children(".bgloader");
-
+	
 				// append iframe html
 				var scrollingHtml = options.scrollable? "yes":"no";
 				container.append("<iframe style='display:none;' class='window_frame ui-widget-content no-draggable no-resizable "+options.frameClass+"' src='"+options.url+"' width='100%' height='"+frameHeight+"px' frameborder='0'></iframe>");
 				frame = container.children(".window_frame");
-
+	
 				// iframe load finished call back
 				frame.ready(function() {
 					frame.show();
 				});
-
+	
 				frame.load(function() {
 					redirectCheck = false;
 					loading.remove();
@@ -569,7 +569,7 @@ $.Window = (function()  {
 					frame.children().show();
 				}
 			}
-
+	
 			// build footer html
 			if( options.showFooter ) {
 				cornerClass = options.showRoundCorner? "ui-corner-bottom ":"";
@@ -583,12 +583,12 @@ $.Window = (function()  {
 				cornerClass = options.showRoundCorner? "ui-corner-bottom ":"";
 				frame.addClass(cornerClass);
 			}
-
+	
 			// bind container handle mousedown event
 			container.mousedown(function() {
 				selectWindow(caller, _this);
 			});
-
+	
 			// make window draggable
 			if( options.draggable ) {
 				container.draggable({
@@ -625,7 +625,7 @@ $.Window = (function()  {
 					container.draggable('option', 'containment', 'parent');
 				}
 			}
-
+	
 			// make window resizable
 			if( options.resizable ) {
 				container.resizable({
@@ -662,7 +662,7 @@ $.Window = (function()  {
 					// this got bug, so mark it temporarily
 					//container.resizable('option', 'containment', "parent");
 				}
-
+	
 				// set resize min, max width & height
 				if( options.maxWidth >= 0 ) {
 					container.resizable('option', 'maxWidth', options.maxWidth);
@@ -683,7 +683,7 @@ $.Window = (function()  {
 				options.onShow(_this);
 			}
 		}
-
+		
 		function setTitle(title) {
 			options.title = title;
 			header.children(".window_title_text").text(title);
@@ -691,20 +691,20 @@ $.Window = (function()  {
 				_transformTitleText();
 			}
 		}
-
+		
 		function getTitle() {
 			return options.title;
 		}
-
+		
 		function setUrl(url) {
 			options.url = url;
 			frame.attr("src", url);
 		}
-
+		
 		function getUrl() {
 			return options.url;
 		}
-
+		
 		function setContent(content) {
 			options.content = content;
 			if( typeof content == 'object' ) {
@@ -715,11 +715,11 @@ $.Window = (function()  {
 			frame.empty();
 			frame.append(content);
 		}
-
+		
 		function getContent() {
 			return frame.html();
 		}
-
+		
 		function setFooterContent(content) {
 			if( options.showFooter ) {
 				options.footerContent = content;
@@ -732,11 +732,11 @@ $.Window = (function()  {
 				footer.children("div").append(content);
 			}
 		}
-
+		
 		function getFooterContent() {
 			return footer.children("div").html();
 		}
-
+		
 		// popup a overlay panel block whole screen while window dragging or resizing
 		// to avoid lost event while mouse cursor over iframe region. [ISU_003]
 		function showOverlay() {
@@ -748,11 +748,11 @@ $.Window = (function()  {
 			}
 			overlay.show();
 		}
-
+		
 		function hideOverlay() {
 			$("#window_overlay").hide();
 		}
-
+		
 		function transferToFixed() {
 			var currPos = container.offset();
 			var scrollPos = getBrowserScrollXY();
@@ -762,7 +762,7 @@ $.Window = (function()  {
 				top: currPos.top - scrollPos.top
 			});
 		}
-
+	
 		function transferToAbsolute() {
 			var currPos = container.offset();
 			container.css({
@@ -771,7 +771,7 @@ $.Window = (function()  {
 				top: currPos.top
 			});
 		}
-
+	
 		function addCustomizedButtns(headerFuncPanel) {
 			if( options.custBtns != null && typeof options.custBtns == 'object' ) {
 				for( var i=0; i<options.custBtns.length; i++ ) {
@@ -807,7 +807,7 @@ $.Window = (function()  {
 				}
 			}
 		}
-
+		
 		function _adjustMinimizedPos(bImmediate, callback) {
 			animating = true;
 			targetCssStyle = getCssStyleByDock(caller, miniStackIndex);
@@ -826,11 +826,11 @@ $.Window = (function()  {
 				});
 			}
 		}
-
+		
 		function adjustHeaderTextPanelWidth() {
 			header.children("div.window_title_text").width( header.width() - funcBarWidth - 10 );
 		}
-
+	
 		function adjustFrameWH() {
 			var width = container.width();
 			var height = container.height();
@@ -838,7 +838,7 @@ $.Window = (function()  {
 			frame.width( width );
 			frame.height( frameHeight );
 		}
-
+	
 		function hideContent() {
 			//log("hideContent");
 			var bgColor = frame.css("backgroundColor");
@@ -851,7 +851,7 @@ $.Window = (function()  {
 			}
 			container.css("opacity", OPACITY_MINIMIZED);
 		}
-
+	
 		function showContent() {
 			//log("showContent");
 			frame.show();
@@ -860,23 +860,23 @@ $.Window = (function()  {
 			}
 			container.css("opacity", 1);
 		}
-
+	
 		function getFrameHeight(windowHeight) {
 			var footerHeight = options.showFooter? 16:0;
 			return windowHeight - 20 - footerHeight - 4; // minus header & footer & iframe's padding height
 		}
-
+	
 		// modify title text as vertical presentation
 		function _transformTitleText() {
 			if( setting.dock == 'top' || setting.dock == 'bottom' ) {
 				return;
 			}
-
+			
 			var textBlock = header.children("div.window_title_text");
 			//var text = textBlock.text();
 			var text = options.title;
 			var buf = "";
-
+			
 			for( var i=0; i<text.length; i++ ) {
 				var c = text.charAt(i);
 				if( c == "-" || c == "_" ) {
@@ -891,63 +891,63 @@ $.Window = (function()  {
 			}
 			textBlock.html(buf);
 		}
-
+	
 		function restoreTitleText() {
 			var textBlock = header.children("div.window_title_text");
 			textBlock.text(options.title);
 		}
-
+		
 		// public
 		function getCaller() {
 			return caller;
 		}
-
+	
 		function getContainer() {
 			return container;
 		}
-
+	
 		function getHeader() {
 			return header;
 		}
-
+	
 		function getFrame() {
 			return frame;
 		}
-
+	
 		function getFooter() {
 			return footer;
 		}
-
+		
 		function getTargetCssStyle() {
 			return targetCssStyle;
 		}
-
+		
 		function alignCenter() {
 			var pLeft = 0, pTop = 0;
 			if( caller != null ) {
 				var cpos = caller.offset();
 				pLeft = cpos.left + (caller.width() - container.width()) / 2;
 				pTop = cpos.top + (caller.height() - container.height()) / 2;
-			} else {
+			} else {			
 				var scrollPos = getBrowserScrollXY();
 				var screenWH = getBrowserScreenWH();
 				pLeft = scrollPos.left + (screenWH.width - container.width()) / 2;
 				pTop = scrollPos.top + (screenWH.height - container.height()) / 2;
 			};
-
+			
 			// random new created window position
 			if( options.createRandomOffset.x > 0 ) {
-				pLeft += ((Math.random() - 0.5) * options.createRandomOffset.x);
+				pLeft += ((Math.random() - 0.5) * options.createRandomOffset.x); 
 			}
 			if( options.createRandomOffset.y > 0 ) {
-				pTop += ((Math.random() - 0.5) * options.createRandomOffset.y);
+				pTop += ((Math.random() - 0.5) * options.createRandomOffset.y);					
 			}
 			container.css({
 				left: pLeft,
 				top: pTop
 			});
 		}
-
+	
 		function alignHorizontalCenter() {
 			var pLeft = 0;
 			if( caller != null ) {
@@ -961,7 +961,7 @@ $.Window = (function()  {
 				left: pLeft
 			});
 		}
-
+	
 		function alignVerticalCenter() {
 			var pTop = 0;
 			if( caller != null ) {
@@ -975,7 +975,7 @@ $.Window = (function()  {
 				top: pTop
 			});
 		}
-
+		
 		function select() {
 			selected = true;
 			if( maximized == false ) {
@@ -988,7 +988,7 @@ $.Window = (function()  {
 				options.onSelect();
 			}
 		}
-
+	
 		function unselect() {
 			selected = false;
 			if( maximized == false ) {
@@ -1001,7 +1001,7 @@ $.Window = (function()  {
 				options.onUnselect();
 			}
 		}
-
+		
 		/**
 		 * @param x - the absolute x-axis value on document or shift distance, in pixels
 		 * @param y - the absolute y-axis value on document or shift distance, in pixels
@@ -1028,7 +1028,7 @@ $.Window = (function()  {
 				container.css(styleObj);
 			}
 		}
-
+		
 		function resize(w, h) {
 			if( !maximized && !minimized ) {
 				var styleObj = {};
@@ -1042,12 +1042,12 @@ $.Window = (function()  {
 				adjustHeaderTextPanelWidth();
 			}
 		}
-
+	
 		function maximize(bImmediately, bNoSaveDisplay) {
 			maximized = true;
 			container.draggable( 'disable' );
 			container.resizable( 'disable' );
-
+	
 			// save current display
 			if( bNoSaveDisplay != true ) {
 				pos.left = container.css("left");
@@ -1057,7 +1057,7 @@ $.Window = (function()  {
 			}
 			// must add this, or it will get a bug when user mouse down the border of window panel if it is resized.
 			container.addClass('no-resizable');
-
+			
 			var scrollPos = getBrowserScrollXY();
 			var screenWH = getBrowserScreenWH();
 			if( caller != null ) {
@@ -1080,7 +1080,7 @@ $.Window = (function()  {
 					opacity: 1
 				};
 			}
-
+	
 			if( bImmediately ) {
 				container.css(targetCssStyle);
 				adjustHeaderTextPanelWidth();
@@ -1101,7 +1101,7 @@ $.Window = (function()  {
 					// switch maximize, cascade button
 					headerFuncPanel.children(".maximizeImg").hide();
 					headerFuncPanel.children(".cascadeImg").show();
-
+					
 					// after callback
 					if( $.isFunction(options.afterMaximize) ) {
 						options.afterMaximize(_this);
@@ -1109,18 +1109,18 @@ $.Window = (function()  {
 				});
 				container.css('z-index', options.z+3);
 			}
-
+			
 			// before callback
 			if( $.isFunction(options.onMaximize) ) {
 				options.onMaximize(_this);
 			}
 		}
-
+	
 		function minimize() {
 			minimized = true;
 			container.draggable( 'disable' );
 			container.resizable( 'disable' );
-
+			
 			// save current display
 			orgPos.left = container.css("left");
 			orgPos.top = container.css("top");
@@ -1133,13 +1133,13 @@ $.Window = (function()  {
 			};
 			// must add this, or it will get a bug when user mouse down the border of window panel if it is resized.
 			container.addClass('no-resizable');
-
+			
 			if( caller == null ) {
 				transferToFixed(); // transfer position to fixed first
 			}
 			headerFuncPanel.hide();
 			hideContent();
-
+			
 			// check minimized windows' size
 			checkMinWindowSize(caller, true);
 			_adjustMinimizedPos(false, function() {
@@ -1152,20 +1152,20 @@ $.Window = (function()  {
 				if( setting.dock == 'left' || setting.dock == 'right' ) {
 					header.addClass('window_header_minimize_vertical');
 				}
-
+				
 				if( options.showRoundCorner ) {
 					header.removeClass('ui-corner-top');
 					header.addClass('ui-corner-all');
 				}
 				_transformTitleText();
-
+	
 				// bind header click event
 				header.click(function() {
 					if( !animating ) {
 						restore();
 					}
 				});
-
+				
 				// after callback
 				if( $.isFunction(options.afterMinimize) ) {
 					options.afterMinimize(_this);
@@ -1177,16 +1177,16 @@ $.Window = (function()  {
 			container.mouseout(function() {
 				$(this).css("opacity", OPACITY_MINIMIZED);
 			});
-
+			
 			// before callback
 			if( $.isFunction(options.onMinimize) ) {
 				options.onMinimize(_this);
 			}
-
+			
 			// push into minimized window storage
 			pushMinWindow(caller, _this);
 		}
-
+	
 		function restore() {
 			var rpos = null;
 			var rwh = null;
@@ -1242,7 +1242,7 @@ $.Window = (function()  {
 				header.removeClass('ui-corner-all');
 				header.addClass('ui-corner-top');
 			}
-
+			
 			// unbind event
 			container.unbind("mouseover");
 			container.unbind("mouseout");
@@ -1254,7 +1254,7 @@ $.Window = (function()  {
 				height: rwh.h,
 				opacity: 1
 			};
-
+			
 			hideContent();
 			container.animate(targetCssStyle, setting.animationSpeed, 'swing', function() {
 				container.css('z-index', zIndex);
@@ -1262,7 +1262,7 @@ $.Window = (function()  {
 				header.unbind('click');
 				adjustHeaderTextPanelWidth();
 				adjustFrameWH();
-
+	
 				// switch maximize, cacade icon
 				if( maximized ) {
 					headerFuncPanel.children(".maximizeImg").hide();
@@ -1274,7 +1274,7 @@ $.Window = (function()  {
 					headerFuncPanel.children(".cascadeImg").hide();
 				}
 				headerFuncPanel.show();
-
+				
 				// pop from minimized window storage
 				if( minimized ) {
 					minimized = false;
@@ -1282,19 +1282,19 @@ $.Window = (function()  {
 					checkMinWindowSize(caller, false);
 					adjustAllMinWindows(caller); // adjust minimized window position
 				}
-
+				
 				// after callback
 				if( $.isFunction(options.afterCascade) ) {
 					options.afterCascade(_this);
 				}
 			});
-
+			
 			// before callback
 			if( $.isFunction(options.onCascade) ) {
 				options.onCascade(_this);
 			}
 		}
-
+		
 		function close(quiet) {
 			// do callback
 			if( !quiet && $.isFunction(options.onClose) ) {
@@ -1302,25 +1302,25 @@ $.Window = (function()  {
 			}
 			destroy();
 		}
-
+	
 		function destroy() {
 			redirectCheck = false;
 			popWindow(_this);
 			container.remove();
 		}
-
+		
 		function show() {
 			container.show();
 		}
-
+		
 		function hide() {
 			container.hide();
 		}
-
+		
 		function _decreaseMiniIndex() {
 			miniStackIndex--;
 		}
-
+	
 		return { // instance public methods
 			initialize: initialize,
 			getTargetCssStyle: getTargetCssStyle,         // get the css ready to change
@@ -1362,7 +1362,7 @@ $.Window = (function()  {
 			isSelected: function() {                      // get window selected status
 				return selected;
 			},
-
+			
 			// for plugin private use
 			_decreaseMiniIndex: _decreaseMiniIndex,
 			_adjustMinimizedPos: _adjustMinimizedPos,
@@ -1373,7 +1373,7 @@ $.Window = (function()  {
 			_transformTitleText: _transformTitleText
 		};
 	} // constructor end
-
+	
 	return { // static public methods
 		getInstance: function(caller, options) { // create new window instance
 			var instance = constructor(caller, options);
@@ -1390,7 +1390,7 @@ $.Window = (function()  {
 				}
 				parentCallers.push(caller);
 			}
-
+			
 			// static initialzation
 			if( !initialized ) {
 				// handle window resize event
@@ -1410,7 +1410,7 @@ $.Window = (function()  {
 									wnd.maximize(true, true);
 								}
 							}
-
+							
 							if( wnd.isMinimized() ) {
 								wnd._adjustMinimizedPos(true);
 							}
@@ -1419,7 +1419,7 @@ $.Window = (function()  {
 				});
 				initialized = true;
 			}
-
+			
 			return instance;
 		},
 		getVersion: function() { // get current version of plugin

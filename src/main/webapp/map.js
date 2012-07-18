@@ -11,6 +11,8 @@ var marker = null;
 var pos = null;
 var markersMap = new HashMap();
 var lastInfoWindow = null;
+/*var n_VM= null;
+var n_windowGroup= null;*/
 
 var contentString = '<div id="content">' +
         '<div id="siteNotice">' +
@@ -28,10 +30,24 @@ function createContent(name, address, id) {
             '<div id="bodyContent">' +
             'Address : ' + address +
 //            '<p> <a href=\"/user.do?action=ADD_FAVOURITE&place_id='+id+'\"> ' + 'Add to Favourites</p>' +
-            '<p> <a HREF="javascript:void(0)" onclick="add_favourite(' + id + ')">Add</p>' +
-            '<p> <a HREF="javascript:void(0)" onclick="create_invite(' + id + ')">Create Invite</p>' +
+            '<p> <a HREF="javascript:void(0)" onclick="add_favourite(' + id + ')">Add   ' +
+           ' <a HREF="javascript:void(0)" onclick="new_invite(' + id + ');return false">  Invite</p>' +
             '</div>';
-    return contentString;
+
+       return contentString;
+}
+
+var popupWindow = null;
+function new_invite(id) {
+    /*n_VM.newWindow("/redirect.do?action=SHOW_FAVOURITES");*/
+    url = "/redirect.do?action=CREATE_INVITE&id="+id;
+    winName = "Super Ventana";
+    LeftPosition = (screen.width) ? (screen.width - 800) / 2 : 0;
+    TopPosition = (screen.height) ? (screen.height - 600) / 2 : 0;
+    scrollbar = "yes";
+    settings =
+            'height=' + 600 + ',width=' + 800 + ',top=' + TopPosition + ',left=' + LeftPosition + ',scrollbars=' + scrollbar + ',resizable'
+    popupWindow = window.open(url, winName, settings)
 }
 
 function getPlaces() {
@@ -52,10 +68,12 @@ function getPlaces() {
 
         /*google.maps.event.addListener(infoMarker.marker, 'click', function() {
          var infoMarkerSelected = markersMap.get(infoMarker.marker.getPosition());
-         infoMarkerSelected.infoWindow.open(map, infoMarker.marker);
+         infoMarkerSelected..open(map, infoMarker.marker);
          });*/
     }
 }
+
+
 
 function getFriends() {
     var json = getJson("http://" + window.location.host + "/user.do?action=PLACE_FRIENDS");
@@ -117,7 +135,10 @@ function getJson(url) {
 
 function loadMap() {
 
+
     var mapLayout = document.getElementById("example");
+
+
 
     var myOptions = {
         zoom: 17,
@@ -156,8 +177,17 @@ function loadMap() {
     });
 
 
-    getPlaces();
-    getFriends();
+//    getPlaces();
+//    getFriends();
+   /* new VManager().startupVManager();*/
+
+
+    document.getElementById("example").style.position="absolute";
+    document.getElementById("example").style.top="40px";
+    document.getElementById("example").style.left="0";
+    document.getElementById("example").style.right="0";
+    document.getElementById("example").style.bottom="0";
+
 }
 
 

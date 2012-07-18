@@ -1,6 +1,7 @@
 package model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class Invitation {
     @OneToOne
     @Embedded
     Place place;
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     Set<User> users;
     @Column
     String date;
@@ -52,9 +53,9 @@ public class Invitation {
     public Invitation (){
 
     }
-    public Invitation (Place place, Set<User> users, String date){
+    public Invitation (Place place, List<User> users, String date){
         this.place=place;
-        this.users=users;
+        this.users=new HashSet<User>(users);
         this.date=date;
     }
 

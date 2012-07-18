@@ -53,9 +53,19 @@ public class RedirectServlet extends HttpServlet {
             case ALL_USERS:
                 allUsers(request,response);
                 break;
+            case CREATE_INVITE:
+                createInvite(request, response);
+                break;
+            case REDIRECT_INVITE:
+                redirectInvite(request,response);
+                break;
 
         }
 
+
+    }
+
+    private void redirectInvite(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
@@ -106,6 +116,8 @@ public class RedirectServlet extends HttpServlet {
 
         Set<Invitation> invitations = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getInvitations();
         ArrayList<Invitation> arrayList = new ArrayList<Invitation>(invitations);
+
+
         request.setAttribute("invitations", arrayList);
         request.getRequestDispatcher("invitations.jsp").forward(request, response);
 
@@ -118,6 +130,18 @@ public class RedirectServlet extends HttpServlet {
         Collections.sort(a);
         request.setAttribute("friends", a);
         request.getRequestDispatcher("friends.jsp").forward(request, response);
+    }
+
+        private void createInvite(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+            System.out.println("AAAAAAAAAAAAAAA CREAME UN INVITE ENEL PLACE QUE TIENE ESTE ID EN EL SERVLET");
+            System.out.println(request.getParameter("id"));
+
+        Set<User> b = UserDAO.retrieveUserbyNickName(request.getRemoteUser()).getFriends();
+        ArrayList<User> a = new ArrayList<User>(b);
+        Collections.sort(a);
+        request.setAttribute("friends", a);
+        request.getRequestDispatcher("invite.jsp").forward(request, response);
     }
 
     private void modifyUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

@@ -28,7 +28,7 @@ public class User implements Comparable{
 	private Set<User> friends;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Place> favouritePlaces;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private Set<Invitation> invitations;
     @Column(nullable = false)
     private boolean deleted;
@@ -43,6 +43,7 @@ public class User implements Comparable{
         setDeleted(false);
         friends = new HashSet<User>();
         favouritePlaces = new HashSet<Place>();
+        invitations = new HashSet<Invitation>();
 
 	}
 

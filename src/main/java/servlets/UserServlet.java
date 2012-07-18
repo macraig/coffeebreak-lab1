@@ -1,9 +1,11 @@
 package servlets;
 
+import DAO.InviteDAO;
 import DAO.LocationDAO;
 import DAO.PlaceDAO;
 import DAO.UserDAO;
 import enums.ActionName;
+import model.Invitation;
 import model.Location;
 import model.Place;
 import model.User;
@@ -20,6 +22,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Servlet implementation class MyServlet
@@ -85,9 +88,46 @@ public class UserServlet extends HttpServlet {
                 request.setAttribute("users", UserDAO.retrieveUserList());
                 request.getRequestDispatcher("allUsers.jsp").forward(request, response);
                 break;
+            case CREATE_INVITE:
+                createInvite(request, response);
+//                request.setAttribute("users", UserDAO.retrieveUserList());
+//                request.getRequestDispatcher("allUsers.jsp").forward(request, response);
+                break;
 
 
         }
+
+    }
+
+    private void createInvite(HttpServletRequest request, HttpServletResponse response) {
+        //arreglar este caos
+
+        StringTokenizer st = new StringTokenizer(request.getParameter("amigos"),",");
+
+        List<User> userList = new ArrayList<User>();
+        while (st.hasMoreTokens()){
+            userList.add(UserDAO.retrieveUserbyNickName(st.nextToken()));
+//            System.out.println(st.nextToken());
+        }
+
+        userList.add(UserDAO.retrieveUserbyNickName(request.getRemoteUser()));
+
+        Place place = PlaceDAO.retrievePlacesbyId(Long.valueOf(request.getParameter("placeId")));
+
+        Invitation invitation = new Invitation(place,userList,request.getParameter("timepicker"));
+
+
+
+        InviteDAO.persist(invitation);
+
+//        for (User u:userList){
+//            u.getInvitations().add(invitation);
+//            dao.persist(u);
+//        }
+
+        System.out.println(invitation.getPlace().getName());
+        System.out.println(invitation.getDate());
+
 
     }
 
