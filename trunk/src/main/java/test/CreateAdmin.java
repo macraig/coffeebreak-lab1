@@ -1,8 +1,6 @@
 package test;
 
-import DAO.LocationDAO;
 import DAO.UserDAO;
-import model.Location;
 import model.User;
 
 /**

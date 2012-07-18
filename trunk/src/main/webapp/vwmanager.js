@@ -34,7 +34,7 @@ function VManager() {
 
         } else {
 
-            var win = $.window({
+        var win = $.window({
 		title: "" + url,
                 url: "" + url,
                 onClose: function(wnd) {

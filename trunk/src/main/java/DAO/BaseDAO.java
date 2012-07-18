@@ -3,20 +3,21 @@ package DAO;
 import hibernate.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class BaseDAO {
 	
     public static void persist(Object pojo) {
+//        HibernateUtil.getSession().flush();
+          HibernateUtil.closeSession();
         try {
-            HibernateUtil.getSession().saveOrUpdate(pojo);
             HibernateUtil.beginTransaction();
+            HibernateUtil.getSession().saveOrUpdate(pojo);
             HibernateUtil.commitTransaction();
+//                    HibernateUtil.getSession().flush();
+            HibernateUtil.closeSession();
         } catch (HibernateException e) {
             e.printStackTrace();
             HibernateUtil.rollbackTransaction();

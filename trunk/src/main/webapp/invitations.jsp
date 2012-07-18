@@ -69,14 +69,19 @@
             <% for (int i = 0; i < ((List) request.getAttribute("invitations")).size(); i++) { %>
 
             <div class="contact">
-                <p class="name">Date: +<%=((List<Invitation>)request.getAttribute("invitations")).get(i).getDate()%>
+                <p class="name">Place: +<%=((List<Invitation>)request.getAttribute("invitations")).get(i).getPlace().getName()%>
                   </p>
 
-                <p class="location"> Location: <span class="adress"> <%=((List<Invitation>)request.getAttribute("invitations")).get(i).getPlace().getAddress()%> </span></p>
+                <p class="location"> Time: <span class="adress"> <%=((List<Invitation>)request.getAttribute("invitations")).get(i).getDate()%> </span></p>
+                                <p class="location"> Address: <span class="adress"> <%=((List<Invitation>)request.getAttribute("invitations")).get(i).getPlace().getAddress()%> </span></p>
 
+                <%--<% for (int j = 0; j<((((List<Invitation>) request.getAttribute("invitations")).get(i).getUsers()).size());j++) { %>--%>
+                <ul>
+                    <%--<li> <%=((User)((List<Invitation>) request.getAttribute("invitations")).get(i).getUsers()).%>--%>
 
-                <div class="buttons">
-                  <input type="button" value="Cancel"/>
+>               <div class="buttons">
+                  <input type="button" value="Accept"/>
+                  <input type="button" value="Cancel" onclick="cancelInvite()"/>
                 </div>
             </div>
 
