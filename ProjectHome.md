@@ -1,0 +1,1 @@
+Webapp for sending email invites for quick social gatherings
